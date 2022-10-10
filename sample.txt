@@ -1,0 +1,32 @@
+Hero Realms(2)
+
+Contents:
+    unlimited 'health' resource tokens,
+    100 'gold' resource tokens,
+    a common deck of:
+        1x 'Alma',
+        2x 'Felma'.
+
+In a turn:
+    'Draw' phase:
+        draw 5 cards.
+    'Play' phase:
+        play any cards,
+        buy any cards.
+
+Players start with:
+    50 'health' resource tokens,
+    a deck of:
+        7x 'Gold',
+        1x 'Dagger'.
+
+The game ends when:
+    a player reaches 10 'Gold' resource tokens or
+    a player reaches 0 or less 'Health' resource tokens.
+
+List of cards:
+    'Gold' ~gold coin~:
+        'Gold' +1.
+
+    'Alma' ~alma~:
+        draw 1 card.

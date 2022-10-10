@@ -1,0 +1,9 @@
+bevezető
+tartalomjegyzék
+-mini tartalomjegyzék
+
+hivatkozások - acm digital library, IEEE explore, dblp, google scholar, researchegate
+-https://www.universiteitleiden.nl/binaries/content/assets/science/mi/scripties/bsc-vanderheijden.pdf
+-antlr könyv
+-dragon book
+-deck building szakirodalom

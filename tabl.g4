@@ -1,6 +1,6 @@
 grammar tabl;
 
-rules: title LB* contents LB* phases LB* starting LB* listOfCards LB*;// setup, gameEnd, wincon
+rules: title LB* contents LB* phases LB* starting LB* gameEnd LB*  listOfCards LB*;// setup, gameEnd, wincon
 
 title: gameName playerCount;
 gameName: ID (SPACE ID)*;
@@ -33,12 +33,12 @@ deckOfDef: TAB DECKOF COLON personalDeckDef;
 personalDeckDef: cardList;
 
 listOfCards: LISTOFCARDS COLON LB cardDefinitions;
-cardDefinitions: cardDefinition (LB cardDefinition)*;
+cardDefinitions: cardDefinition (LB* cardDefinition)*;
 cardDefinition: TAB cardNameAndPicture;
 cardNameAndPicture: cardName SPACE pictureName COLON LB cardEffects (LB cardEffects)*;
 cardEffects: TAB TAB resourceEffectOrActionEffect;
-resourceEffectOrActionEffect: (actionWithTarget | resourceEffectWithTatget) delim;
-resourceEffectWithTatget: (target SPACE)? resourceEffect;
+resourceEffectOrActionEffect: (actionWithTarget | resourceEffectWithTarget) delim;
+resourceEffectWithTarget: (target SPACE)? resourceEffect;
 actionWithTarget: (target SPACE)? action;
 target: TARGET;
 resourceEffect: resourceName SPACE modifyType modifyNumber;
@@ -48,12 +48,19 @@ modifyNumber: NUMBER;
 cardName: NAME;
 pictureName: WAVY ID (SPACE ID)* WAVY;
 
+gameEnd: GAMEENDSWHEN COLON LB (gameEndConditionDef endOrAndOr)+;
+endOrAndOr: (SPACE (AND | OR) LB) | PERIOD;
+gameEndConditionDef: TAB gameEndCondition;
+gameEndCondition: APLAYERREACHES SPACE gameEndConditionQuant SPACE (gameEndMoreOrLess SPACE)? gameEndResource SPACE RESOURCETOKENS;
+gameEndConditionQuant: NUMBER;
+gameEndMoreOrLess: OR SPACE moreOrLess;
+moreOrLess: MOREORLESS;
+gameEndResource: NAME;
 
 
 CONTENTS: 'Contents' | 'contents';
 TAB: '\t' | '    ';
 COMMA: ',';
-
 PAR_OPEN: '(';
 PAR_CLOSE: ')';
 COLON: ':';
@@ -68,6 +75,11 @@ DELIM: ',' | '.';
 APOSTROPHE: '\'';
 PHASE: 'phase';
 TO: 'to';
+GAMEENDSWHEN: 'The game ends when';
+APLAYERREACHES: 'a player reaches';
+OR: 'or';
+AND: 'and';
+MOREORLESS: 'less' | 'more';
 INATURN: 'In a turn' | 'in a turn';
 RESOURCETOKENS: 'resource token' | 'resource tokens';
 COMMONDECKOF: 'a common deck of';
@@ -80,7 +92,5 @@ LISTOFCARDS: 'List of cards';
 TARGET: 'enemy';
 ANYALL: 'any' | 'all';
 NUMBER: [0-9]+;
-
-
 NAME: '\''[a-zA-Z]([-a-zA-Z ])*'\'';
 ID: [a-zA-Z]+;
