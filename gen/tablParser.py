@@ -1,4 +1,4 @@
-# Generated from C:/Users/barna/PycharmProjects/tabl\tabl.g4 by ANTLR 4.10.1
+# Generated from C:/Users/barna/PycharmProjects/tabl\Tabl.g4 by ANTLR 4.10.1
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -147,9 +147,9 @@ def serializedATN():
         304,320,329,336,343,368,381,387,399
     ]
 
-class tablParser ( Parser ):
+class TablParser ( Parser ):
 
-    grammarFileName = "tabl.g4"
+    grammarFileName = "Tabl.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -295,37 +295,37 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def title(self):
-            return self.getTypedRuleContext(tablParser.TitleContext,0)
+            return self.getTypedRuleContext(TablParser.TitleContext,0)
 
 
         def contents(self):
-            return self.getTypedRuleContext(tablParser.ContentsContext,0)
+            return self.getTypedRuleContext(TablParser.ContentsContext,0)
 
 
         def phases(self):
-            return self.getTypedRuleContext(tablParser.PhasesContext,0)
+            return self.getTypedRuleContext(TablParser.PhasesContext,0)
 
 
         def starting(self):
-            return self.getTypedRuleContext(tablParser.StartingContext,0)
+            return self.getTypedRuleContext(TablParser.StartingContext,0)
 
 
         def gameEnd(self):
-            return self.getTypedRuleContext(tablParser.GameEndContext,0)
+            return self.getTypedRuleContext(TablParser.GameEndContext,0)
 
 
         def listOfCards(self):
-            return self.getTypedRuleContext(tablParser.ListOfCardsContext,0)
+            return self.getTypedRuleContext(TablParser.ListOfCardsContext,0)
 
 
         def LB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.LB)
+                return self.getTokens(TablParser.LB)
             else:
-                return self.getToken(tablParser.LB, i)
+                return self.getToken(TablParser.LB, i)
 
         def getRuleIndex(self):
-            return tablParser.RULE_rules
+            return TablParser.RULE_rules
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitRules" ):
@@ -338,7 +338,7 @@ class tablParser ( Parser ):
 
     def rules(self):
 
-        localctx = tablParser.RulesContext(self, self._ctx, self.state)
+        localctx = TablParser.RulesContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_rules)
         self._la = 0 # Token type
         try:
@@ -348,9 +348,9 @@ class tablParser ( Parser ):
             self.state = 104
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.LB:
+            while _la==TablParser.LB:
                 self.state = 101
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 self.state = 106
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -360,9 +360,9 @@ class tablParser ( Parser ):
             self.state = 111
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.LB:
+            while _la==TablParser.LB:
                 self.state = 108
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 self.state = 113
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -372,9 +372,9 @@ class tablParser ( Parser ):
             self.state = 118
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.LB:
+            while _la==TablParser.LB:
                 self.state = 115
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 self.state = 120
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -384,9 +384,9 @@ class tablParser ( Parser ):
             self.state = 125
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.LB:
+            while _la==TablParser.LB:
                 self.state = 122
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 self.state = 127
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -396,9 +396,9 @@ class tablParser ( Parser ):
             self.state = 132
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.LB:
+            while _la==TablParser.LB:
                 self.state = 129
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 self.state = 134
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -408,9 +408,9 @@ class tablParser ( Parser ):
             self.state = 139
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.LB:
+            while _la==TablParser.LB:
                 self.state = 136
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 self.state = 141
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -432,15 +432,15 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def gameName(self):
-            return self.getTypedRuleContext(tablParser.GameNameContext,0)
+            return self.getTypedRuleContext(TablParser.GameNameContext,0)
 
 
         def playerCount(self):
-            return self.getTypedRuleContext(tablParser.PlayerCountContext,0)
+            return self.getTypedRuleContext(TablParser.PlayerCountContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_title
+            return TablParser.RULE_title
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitTitle" ):
@@ -453,7 +453,7 @@ class tablParser ( Parser ):
 
     def title(self):
 
-        localctx = tablParser.TitleContext(self, self._ctx, self.state)
+        localctx = TablParser.TitleContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_title)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -479,18 +479,18 @@ class tablParser ( Parser ):
 
         def ID(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.ID)
+                return self.getTokens(TablParser.ID)
             else:
-                return self.getToken(tablParser.ID, i)
+                return self.getToken(TablParser.ID, i)
 
         def SPACE(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.SPACE)
+                return self.getTokens(TablParser.SPACE)
             else:
-                return self.getToken(tablParser.SPACE, i)
+                return self.getToken(TablParser.SPACE, i)
 
         def getRuleIndex(self):
-            return tablParser.RULE_gameName
+            return TablParser.RULE_gameName
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitGameName" ):
@@ -503,21 +503,21 @@ class tablParser ( Parser ):
 
     def gameName(self):
 
-        localctx = tablParser.GameNameContext(self, self._ctx, self.state)
+        localctx = TablParser.GameNameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_gameName)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 145
-            self.match(tablParser.ID)
+            self.match(TablParser.ID)
             self.state = 150
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.SPACE:
+            while _la==TablParser.SPACE:
                 self.state = 146
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
                 self.state = 147
-                self.match(tablParser.ID)
+                self.match(TablParser.ID)
                 self.state = 152
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -539,17 +539,17 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def PAR_OPEN(self):
-            return self.getToken(tablParser.PAR_OPEN, 0)
+            return self.getToken(TablParser.PAR_OPEN, 0)
 
         def numberOfPlayers(self):
-            return self.getTypedRuleContext(tablParser.NumberOfPlayersContext,0)
+            return self.getTypedRuleContext(TablParser.NumberOfPlayersContext,0)
 
 
         def PAR_CLOSE(self):
-            return self.getToken(tablParser.PAR_CLOSE, 0)
+            return self.getToken(TablParser.PAR_CLOSE, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_playerCount
+            return TablParser.RULE_playerCount
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitPlayerCount" ):
@@ -562,16 +562,16 @@ class tablParser ( Parser ):
 
     def playerCount(self):
 
-        localctx = tablParser.PlayerCountContext(self, self._ctx, self.state)
+        localctx = TablParser.PlayerCountContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_playerCount)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 153
-            self.match(tablParser.PAR_OPEN)
+            self.match(TablParser.PAR_OPEN)
             self.state = 154
             self.numberOfPlayers()
             self.state = 155
-            self.match(tablParser.PAR_CLOSE)
+            self.match(TablParser.PAR_CLOSE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -590,21 +590,21 @@ class tablParser ( Parser ):
 
         def NUMBER(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.NUMBER)
+                return self.getTokens(TablParser.NUMBER)
             else:
-                return self.getToken(tablParser.NUMBER, i)
+                return self.getToken(TablParser.NUMBER, i)
 
         def SPACE(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.SPACE)
+                return self.getTokens(TablParser.SPACE)
             else:
-                return self.getToken(tablParser.SPACE, i)
+                return self.getToken(TablParser.SPACE, i)
 
         def TO(self):
-            return self.getToken(tablParser.TO, 0)
+            return self.getToken(TablParser.TO, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_numberOfPlayers
+            return TablParser.RULE_numberOfPlayers
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitNumberOfPlayers" ):
@@ -617,25 +617,25 @@ class tablParser ( Parser ):
 
     def numberOfPlayers(self):
 
-        localctx = tablParser.NumberOfPlayersContext(self, self._ctx, self.state)
+        localctx = TablParser.NumberOfPlayersContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_numberOfPlayers)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 157
-            self.match(tablParser.NUMBER)
+            self.match(TablParser.NUMBER)
             self.state = 162
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==tablParser.SPACE:
+            if _la==TablParser.SPACE:
                 self.state = 158
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
                 self.state = 159
-                self.match(tablParser.TO)
+                self.match(TablParser.TO)
                 self.state = 160
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
                 self.state = 161
-                self.match(tablParser.NUMBER)
+                self.match(TablParser.NUMBER)
 
 
         except RecognitionException as re:
@@ -655,20 +655,20 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def CONTENTS(self):
-            return self.getToken(tablParser.CONTENTS, 0)
+            return self.getToken(TablParser.CONTENTS, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def LB(self):
-            return self.getToken(tablParser.LB, 0)
+            return self.getToken(TablParser.LB, 0)
 
         def contentRule(self):
-            return self.getTypedRuleContext(tablParser.ContentRuleContext,0)
+            return self.getTypedRuleContext(TablParser.ContentRuleContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_contents
+            return TablParser.RULE_contents
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitContents" ):
@@ -681,16 +681,16 @@ class tablParser ( Parser ):
 
     def contents(self):
 
-        localctx = tablParser.ContentsContext(self, self._ctx, self.state)
+        localctx = TablParser.ContentsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_contents)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 164
-            self.match(tablParser.CONTENTS)
+            self.match(TablParser.CONTENTS)
             self.state = 165
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 166
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 167
             self.contentRule()
         except RecognitionException as re:
@@ -711,23 +711,23 @@ class tablParser ( Parser ):
 
         def resourceRuleDef(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.ResourceRuleDefContext)
+                return self.getTypedRuleContexts(TablParser.ResourceRuleDefContext)
             else:
-                return self.getTypedRuleContext(tablParser.ResourceRuleDefContext,i)
+                return self.getTypedRuleContext(TablParser.ResourceRuleDefContext,i)
 
 
         def LB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.LB)
+                return self.getTokens(TablParser.LB)
             else:
-                return self.getToken(tablParser.LB, i)
+                return self.getToken(TablParser.LB, i)
 
         def commonDeckDef(self):
-            return self.getTypedRuleContext(tablParser.CommonDeckDefContext,0)
+            return self.getTypedRuleContext(TablParser.CommonDeckDefContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_contentRule
+            return TablParser.RULE_contentRule
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitContentRule" ):
@@ -740,7 +740,7 @@ class tablParser ( Parser ):
 
     def contentRule(self):
 
-        localctx = tablParser.ContentRuleContext(self, self._ctx, self.state)
+        localctx = TablParser.ContentRuleContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_contentRule)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -752,7 +752,7 @@ class tablParser ( Parser ):
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     self.state = 170
-                    self.match(tablParser.LB)
+                    self.match(TablParser.LB)
                     self.state = 171
                     self.resourceRuleDef() 
                 self.state = 176
@@ -760,7 +760,7 @@ class tablParser ( Parser ):
                 _alt = self._interp.adaptivePredict(self._input,8,self._ctx)
 
             self.state = 177
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 178
             self.commonDeckDef()
         except RecognitionException as re:
@@ -780,20 +780,20 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def TAB(self):
-            return self.getToken(tablParser.TAB, 0)
+            return self.getToken(TablParser.TAB, 0)
 
         def resourceRule(self):
-            return self.getTypedRuleContext(tablParser.ResourceRuleContext,0)
+            return self.getTypedRuleContext(TablParser.ResourceRuleContext,0)
 
 
         def RESOURCETOKENS(self):
-            return self.getToken(tablParser.RESOURCETOKENS, 0)
+            return self.getToken(TablParser.RESOURCETOKENS, 0)
 
         def COMMA(self):
-            return self.getToken(tablParser.COMMA, 0)
+            return self.getToken(TablParser.COMMA, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_resourceRuleDef
+            return TablParser.RULE_resourceRuleDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitResourceRuleDef" ):
@@ -806,18 +806,18 @@ class tablParser ( Parser ):
 
     def resourceRuleDef(self):
 
-        localctx = tablParser.ResourceRuleDefContext(self, self._ctx, self.state)
+        localctx = TablParser.ResourceRuleDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_resourceRuleDef)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 180
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 181
             self.resourceRule()
             self.state = 182
-            self.match(tablParser.RESOURCETOKENS)
+            self.match(TablParser.RESOURCETOKENS)
             self.state = 183
-            self.match(tablParser.COMMA)
+            self.match(TablParser.COMMA)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -835,21 +835,21 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def resourceNumber(self):
-            return self.getTypedRuleContext(tablParser.ResourceNumberContext,0)
+            return self.getTypedRuleContext(TablParser.ResourceNumberContext,0)
 
 
         def SPACE(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.SPACE)
+                return self.getTokens(TablParser.SPACE)
             else:
-                return self.getToken(tablParser.SPACE, i)
+                return self.getToken(TablParser.SPACE, i)
 
         def resourceName(self):
-            return self.getTypedRuleContext(tablParser.ResourceNameContext,0)
+            return self.getTypedRuleContext(TablParser.ResourceNameContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_resourceRule
+            return TablParser.RULE_resourceRule
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitResourceRule" ):
@@ -862,18 +862,18 @@ class tablParser ( Parser ):
 
     def resourceRule(self):
 
-        localctx = tablParser.ResourceRuleContext(self, self._ctx, self.state)
+        localctx = TablParser.ResourceRuleContext(self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_resourceRule)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 185
             self.resourceNumber()
             self.state = 186
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 187
             self.resourceName()
             self.state = 188
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -891,10 +891,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tablParser.NAME, 0)
+            return self.getToken(TablParser.NAME, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_resourceName
+            return TablParser.RULE_resourceName
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitResourceName" ):
@@ -907,12 +907,12 @@ class tablParser ( Parser ):
 
     def resourceName(self):
 
-        localctx = tablParser.ResourceNameContext(self, self._ctx, self.state)
+        localctx = TablParser.ResourceNameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 18, self.RULE_resourceName)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 190
-            self.match(tablParser.NAME)
+            self.match(TablParser.NAME)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -930,13 +930,13 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NUMBER(self):
-            return self.getToken(tablParser.NUMBER, 0)
+            return self.getToken(TablParser.NUMBER, 0)
 
         def UNLIMITED(self):
-            return self.getToken(tablParser.UNLIMITED, 0)
+            return self.getToken(TablParser.UNLIMITED, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_resourceNumber
+            return TablParser.RULE_resourceNumber
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitResourceNumber" ):
@@ -949,14 +949,14 @@ class tablParser ( Parser ):
 
     def resourceNumber(self):
 
-        localctx = tablParser.ResourceNumberContext(self, self._ctx, self.state)
+        localctx = TablParser.ResourceNumberContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_resourceNumber)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 192
             _la = self._input.LA(1)
-            if not(_la==tablParser.UNLIMITED or _la==tablParser.NUMBER):
+            if not(_la==TablParser.UNLIMITED or _la==TablParser.NUMBER):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -978,23 +978,23 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def TAB(self):
-            return self.getToken(tablParser.TAB, 0)
+            return self.getToken(TablParser.TAB, 0)
 
         def COMMONDECKOF(self):
-            return self.getToken(tablParser.COMMONDECKOF, 0)
+            return self.getToken(TablParser.COMMONDECKOF, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def cardList(self):
-            return self.getTypedRuleContext(tablParser.CardListContext,0)
+            return self.getTypedRuleContext(TablParser.CardListContext,0)
 
 
         def PERIOD(self):
-            return self.getToken(tablParser.PERIOD, 0)
+            return self.getToken(TablParser.PERIOD, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_commonDeckDef
+            return TablParser.RULE_commonDeckDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCommonDeckDef" ):
@@ -1007,20 +1007,20 @@ class tablParser ( Parser ):
 
     def commonDeckDef(self):
 
-        localctx = tablParser.CommonDeckDefContext(self, self._ctx, self.state)
+        localctx = TablParser.CommonDeckDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 22, self.RULE_commonDeckDef)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 194
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 195
-            self.match(tablParser.COMMONDECKOF)
+            self.match(TablParser.COMMONDECKOF)
             self.state = 196
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 197
             self.cardList()
             self.state = 198
-            self.match(tablParser.PERIOD)
+            self.match(TablParser.PERIOD)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1039,19 +1039,19 @@ class tablParser ( Parser ):
 
         def numberOfCardDef(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.NumberOfCardDefContext)
+                return self.getTypedRuleContexts(TablParser.NumberOfCardDefContext)
             else:
-                return self.getTypedRuleContext(tablParser.NumberOfCardDefContext,i)
+                return self.getTypedRuleContext(TablParser.NumberOfCardDefContext,i)
 
 
         def COMMA(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.COMMA)
+                return self.getTokens(TablParser.COMMA)
             else:
-                return self.getToken(tablParser.COMMA, i)
+                return self.getToken(TablParser.COMMA, i)
 
         def getRuleIndex(self):
-            return tablParser.RULE_cardList
+            return TablParser.RULE_cardList
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCardList" ):
@@ -1064,7 +1064,7 @@ class tablParser ( Parser ):
 
     def cardList(self):
 
-        localctx = tablParser.CardListContext(self, self._ctx, self.state)
+        localctx = TablParser.CardListContext(self, self._ctx, self.state)
         self.enterRule(localctx, 24, self.RULE_cardList)
         self._la = 0 # Token type
         try:
@@ -1074,9 +1074,9 @@ class tablParser ( Parser ):
             self.state = 205
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.COMMA:
+            while _la==TablParser.COMMA:
                 self.state = 201
-                self.match(tablParser.COMMA)
+                self.match(TablParser.COMMA)
                 self.state = 202
                 self.numberOfCardDef()
                 self.state = 207
@@ -1100,20 +1100,20 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def LB(self):
-            return self.getToken(tablParser.LB, 0)
+            return self.getToken(TablParser.LB, 0)
 
         def TAB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.TAB)
+                return self.getTokens(TablParser.TAB)
             else:
-                return self.getToken(tablParser.TAB, i)
+                return self.getToken(TablParser.TAB, i)
 
         def numberOfCard(self):
-            return self.getTypedRuleContext(tablParser.NumberOfCardContext,0)
+            return self.getTypedRuleContext(TablParser.NumberOfCardContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_numberOfCardDef
+            return TablParser.RULE_numberOfCardDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitNumberOfCardDef" ):
@@ -1126,16 +1126,16 @@ class tablParser ( Parser ):
 
     def numberOfCardDef(self):
 
-        localctx = tablParser.NumberOfCardDefContext(self, self._ctx, self.state)
+        localctx = TablParser.NumberOfCardDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 26, self.RULE_numberOfCardDef)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 208
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 209
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 210
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 211
             self.numberOfCard()
         except RecognitionException as re:
@@ -1155,19 +1155,19 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NUMBER(self):
-            return self.getToken(tablParser.NUMBER, 0)
+            return self.getToken(TablParser.NUMBER, 0)
 
         def X(self):
-            return self.getToken(tablParser.X, 0)
+            return self.getToken(TablParser.X, 0)
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def NAME(self):
-            return self.getToken(tablParser.NAME, 0)
+            return self.getToken(TablParser.NAME, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_numberOfCard
+            return TablParser.RULE_numberOfCard
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitNumberOfCard" ):
@@ -1180,18 +1180,18 @@ class tablParser ( Parser ):
 
     def numberOfCard(self):
 
-        localctx = tablParser.NumberOfCardContext(self, self._ctx, self.state)
+        localctx = TablParser.NumberOfCardContext(self, self._ctx, self.state)
         self.enterRule(localctx, 28, self.RULE_numberOfCard)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 213
-            self.match(tablParser.NUMBER)
+            self.match(TablParser.NUMBER)
             self.state = 214
-            self.match(tablParser.X)
+            self.match(TablParser.X)
             self.state = 215
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 216
-            self.match(tablParser.NAME)
+            self.match(TablParser.NAME)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1209,23 +1209,23 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def INATURN(self):
-            return self.getToken(tablParser.INATURN, 0)
+            return self.getToken(TablParser.INATURN, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def phaseDef(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.PhaseDefContext)
+                return self.getTypedRuleContexts(TablParser.PhaseDefContext)
             else:
-                return self.getTypedRuleContext(tablParser.PhaseDefContext,i)
+                return self.getTypedRuleContext(TablParser.PhaseDefContext,i)
 
 
         def LB(self):
-            return self.getToken(tablParser.LB, 0)
+            return self.getToken(TablParser.LB, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_phases
+            return TablParser.RULE_phases
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitPhases" ):
@@ -1238,14 +1238,14 @@ class tablParser ( Parser ):
 
     def phases(self):
 
-        localctx = tablParser.PhasesContext(self, self._ctx, self.state)
+        localctx = TablParser.PhasesContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_phases)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 218
-            self.match(tablParser.INATURN)
+            self.match(TablParser.INATURN)
             self.state = 219
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 220
             self.phaseDef()
             self.state = 224
@@ -1260,7 +1260,7 @@ class tablParser ( Parser ):
                 _alt = self._interp.adaptivePredict(self._input,10,self._ctx)
 
             self.state = 227
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1278,14 +1278,14 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def LB(self):
-            return self.getToken(tablParser.LB, 0)
+            return self.getToken(TablParser.LB, 0)
 
         def phase(self):
-            return self.getTypedRuleContext(tablParser.PhaseContext,0)
+            return self.getTypedRuleContext(TablParser.PhaseContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_phaseDef
+            return TablParser.RULE_phaseDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitPhaseDef" ):
@@ -1298,12 +1298,12 @@ class tablParser ( Parser ):
 
     def phaseDef(self):
 
-        localctx = tablParser.PhaseDefContext(self, self._ctx, self.state)
+        localctx = TablParser.PhaseDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_phaseDef)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 229
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 230
             self.phase()
         except RecognitionException as re:
@@ -1323,45 +1323,45 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def TAB(self):
-            return self.getToken(tablParser.TAB, 0)
+            return self.getToken(TablParser.TAB, 0)
 
         def phaseName(self):
-            return self.getTypedRuleContext(tablParser.PhaseNameContext,0)
+            return self.getTypedRuleContext(TablParser.PhaseNameContext,0)
 
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def PHASE(self):
-            return self.getToken(tablParser.PHASE, 0)
+            return self.getToken(TablParser.PHASE, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def LB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.LB)
+                return self.getTokens(TablParser.LB)
             else:
-                return self.getToken(tablParser.LB, i)
+                return self.getToken(TablParser.LB, i)
 
         def actionDef(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.ActionDefContext)
+                return self.getTypedRuleContexts(TablParser.ActionDefContext)
             else:
-                return self.getTypedRuleContext(tablParser.ActionDefContext,i)
+                return self.getTypedRuleContext(TablParser.ActionDefContext,i)
 
 
         def PERIOD(self):
-            return self.getToken(tablParser.PERIOD, 0)
+            return self.getToken(TablParser.PERIOD, 0)
 
         def COMMA(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.COMMA)
+                return self.getTokens(TablParser.COMMA)
             else:
-                return self.getToken(tablParser.COMMA, i)
+                return self.getToken(TablParser.COMMA, i)
 
         def getRuleIndex(self):
-            return tablParser.RULE_phase
+            return TablParser.RULE_phase
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitPhase" ):
@@ -1374,33 +1374,33 @@ class tablParser ( Parser ):
 
     def phase(self):
 
-        localctx = tablParser.PhaseContext(self, self._ctx, self.state)
+        localctx = TablParser.PhaseContext(self, self._ctx, self.state)
         self.enterRule(localctx, 34, self.RULE_phase)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 232
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 233
             self.phaseName()
             self.state = 234
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 235
-            self.match(tablParser.PHASE)
+            self.match(TablParser.PHASE)
             self.state = 236
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 237
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 238
             self.actionDef()
             self.state = 244
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.COMMA:
+            while _la==TablParser.COMMA:
                 self.state = 239
-                self.match(tablParser.COMMA)
+                self.match(TablParser.COMMA)
                 self.state = 240
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 self.state = 241
                 self.actionDef()
                 self.state = 246
@@ -1408,7 +1408,7 @@ class tablParser ( Parser ):
                 _la = self._input.LA(1)
 
             self.state = 247
-            self.match(tablParser.PERIOD)
+            self.match(TablParser.PERIOD)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1426,10 +1426,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tablParser.NAME, 0)
+            return self.getToken(TablParser.NAME, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_phaseName
+            return TablParser.RULE_phaseName
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitPhaseName" ):
@@ -1442,12 +1442,12 @@ class tablParser ( Parser ):
 
     def phaseName(self):
 
-        localctx = tablParser.PhaseNameContext(self, self._ctx, self.state)
+        localctx = TablParser.PhaseNameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_phaseName)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 249
-            self.match(tablParser.NAME)
+            self.match(TablParser.NAME)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1466,16 +1466,16 @@ class tablParser ( Parser ):
 
         def TAB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.TAB)
+                return self.getTokens(TablParser.TAB)
             else:
-                return self.getToken(tablParser.TAB, i)
+                return self.getToken(TablParser.TAB, i)
 
         def action(self):
-            return self.getTypedRuleContext(tablParser.ActionContext,0)
+            return self.getTypedRuleContext(TablParser.ActionContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_actionDef
+            return TablParser.RULE_actionDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitActionDef" ):
@@ -1488,14 +1488,14 @@ class tablParser ( Parser ):
 
     def actionDef(self):
 
-        localctx = tablParser.ActionDefContext(self, self._ctx, self.state)
+        localctx = TablParser.ActionDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_actionDef)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 251
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 252
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 253
             self.action()
         except RecognitionException as re:
@@ -1515,25 +1515,25 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def actionName(self):
-            return self.getTypedRuleContext(tablParser.ActionNameContext,0)
+            return self.getTypedRuleContext(TablParser.ActionNameContext,0)
 
 
         def SPACE(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.SPACE)
+                return self.getTokens(TablParser.SPACE)
             else:
-                return self.getToken(tablParser.SPACE, i)
+                return self.getToken(TablParser.SPACE, i)
 
         def doTimes(self):
-            return self.getTypedRuleContext(tablParser.DoTimesContext,0)
+            return self.getTypedRuleContext(TablParser.DoTimesContext,0)
 
 
         def actionCardResource(self):
-            return self.getTypedRuleContext(tablParser.ActionCardResourceContext,0)
+            return self.getTypedRuleContext(TablParser.ActionCardResourceContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_action
+            return TablParser.RULE_action
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitAction" ):
@@ -1546,18 +1546,18 @@ class tablParser ( Parser ):
 
     def action(self):
 
-        localctx = tablParser.ActionContext(self, self._ctx, self.state)
+        localctx = TablParser.ActionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 40, self.RULE_action)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 255
             self.actionName()
             self.state = 256
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 257
             self.doTimes()
             self.state = 258
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 259
             self.actionCardResource()
         except RecognitionException as re:
@@ -1577,13 +1577,13 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NUMBER(self):
-            return self.getToken(tablParser.NUMBER, 0)
+            return self.getToken(TablParser.NUMBER, 0)
 
         def ANYALL(self):
-            return self.getToken(tablParser.ANYALL, 0)
+            return self.getToken(TablParser.ANYALL, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_doTimes
+            return TablParser.RULE_doTimes
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitDoTimes" ):
@@ -1596,14 +1596,14 @@ class tablParser ( Parser ):
 
     def doTimes(self):
 
-        localctx = tablParser.DoTimesContext(self, self._ctx, self.state)
+        localctx = TablParser.DoTimesContext(self, self._ctx, self.state)
         self.enterRule(localctx, 42, self.RULE_doTimes)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 261
             _la = self._input.LA(1)
-            if not(_la==tablParser.ANYALL or _la==tablParser.NUMBER):
+            if not(_la==TablParser.ANYALL or _la==TablParser.NUMBER):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1625,10 +1625,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def ACTIONNAME(self):
-            return self.getToken(tablParser.ACTIONNAME, 0)
+            return self.getToken(TablParser.ACTIONNAME, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_actionName
+            return TablParser.RULE_actionName
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitActionName" ):
@@ -1641,12 +1641,12 @@ class tablParser ( Parser ):
 
     def actionName(self):
 
-        localctx = tablParser.ActionNameContext(self, self._ctx, self.state)
+        localctx = TablParser.ActionNameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 44, self.RULE_actionName)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 263
-            self.match(tablParser.ACTIONNAME)
+            self.match(TablParser.ACTIONNAME)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1664,10 +1664,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def RESOURCEORCARDS(self):
-            return self.getToken(tablParser.RESOURCEORCARDS, 0)
+            return self.getToken(TablParser.RESOURCEORCARDS, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_actionCardResource
+            return TablParser.RULE_actionCardResource
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitActionCardResource" ):
@@ -1680,12 +1680,12 @@ class tablParser ( Parser ):
 
     def actionCardResource(self):
 
-        localctx = tablParser.ActionCardResourceContext(self, self._ctx, self.state)
+        localctx = TablParser.ActionCardResourceContext(self, self._ctx, self.state)
         self.enterRule(localctx, 46, self.RULE_actionCardResource)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 265
-            self.match(tablParser.RESOURCEORCARDS)
+            self.match(TablParser.RESOURCEORCARDS)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1703,33 +1703,33 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def PLAYERSSTARTWIHT(self):
-            return self.getToken(tablParser.PLAYERSSTARTWIHT, 0)
+            return self.getToken(TablParser.PLAYERSSTARTWIHT, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def LB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.LB)
+                return self.getTokens(TablParser.LB)
             else:
-                return self.getToken(tablParser.LB, i)
+                return self.getToken(TablParser.LB, i)
 
         def resourceRuleDef(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.ResourceRuleDefContext)
+                return self.getTypedRuleContexts(TablParser.ResourceRuleDefContext)
             else:
-                return self.getTypedRuleContext(tablParser.ResourceRuleDefContext,i)
+                return self.getTypedRuleContext(TablParser.ResourceRuleDefContext,i)
 
 
         def deckOfDef(self):
-            return self.getTypedRuleContext(tablParser.DeckOfDefContext,0)
+            return self.getTypedRuleContext(TablParser.DeckOfDefContext,0)
 
 
         def PERIOD(self):
-            return self.getToken(tablParser.PERIOD, 0)
+            return self.getToken(TablParser.PERIOD, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_starting
+            return TablParser.RULE_starting
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitStarting" ):
@@ -1742,16 +1742,16 @@ class tablParser ( Parser ):
 
     def starting(self):
 
-        localctx = tablParser.StartingContext(self, self._ctx, self.state)
+        localctx = TablParser.StartingContext(self, self._ctx, self.state)
         self.enterRule(localctx, 48, self.RULE_starting)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 267
-            self.match(tablParser.PLAYERSSTARTWIHT)
+            self.match(TablParser.PLAYERSSTARTWIHT)
             self.state = 268
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 269
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 270
             self.resourceRuleDef()
             self.state = 275
@@ -1760,7 +1760,7 @@ class tablParser ( Parser ):
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     self.state = 271
-                    self.match(tablParser.LB)
+                    self.match(TablParser.LB)
                     self.state = 272
                     self.resourceRuleDef() 
                 self.state = 277
@@ -1768,11 +1768,11 @@ class tablParser ( Parser ):
                 _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
 
             self.state = 278
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 279
             self.deckOfDef()
             self.state = 280
-            self.match(tablParser.PERIOD)
+            self.match(TablParser.PERIOD)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1790,20 +1790,20 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def TAB(self):
-            return self.getToken(tablParser.TAB, 0)
+            return self.getToken(TablParser.TAB, 0)
 
         def DECKOF(self):
-            return self.getToken(tablParser.DECKOF, 0)
+            return self.getToken(TablParser.DECKOF, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def personalDeckDef(self):
-            return self.getTypedRuleContext(tablParser.PersonalDeckDefContext,0)
+            return self.getTypedRuleContext(TablParser.PersonalDeckDefContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_deckOfDef
+            return TablParser.RULE_deckOfDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitDeckOfDef" ):
@@ -1816,16 +1816,16 @@ class tablParser ( Parser ):
 
     def deckOfDef(self):
 
-        localctx = tablParser.DeckOfDefContext(self, self._ctx, self.state)
+        localctx = TablParser.DeckOfDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 50, self.RULE_deckOfDef)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 282
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 283
-            self.match(tablParser.DECKOF)
+            self.match(TablParser.DECKOF)
             self.state = 284
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 285
             self.personalDeckDef()
         except RecognitionException as re:
@@ -1845,11 +1845,11 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def cardList(self):
-            return self.getTypedRuleContext(tablParser.CardListContext,0)
+            return self.getTypedRuleContext(TablParser.CardListContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_personalDeckDef
+            return TablParser.RULE_personalDeckDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitPersonalDeckDef" ):
@@ -1862,7 +1862,7 @@ class tablParser ( Parser ):
 
     def personalDeckDef(self):
 
-        localctx = tablParser.PersonalDeckDefContext(self, self._ctx, self.state)
+        localctx = TablParser.PersonalDeckDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 52, self.RULE_personalDeckDef)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1885,20 +1885,20 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def LISTOFCARDS(self):
-            return self.getToken(tablParser.LISTOFCARDS, 0)
+            return self.getToken(TablParser.LISTOFCARDS, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def LB(self):
-            return self.getToken(tablParser.LB, 0)
+            return self.getToken(TablParser.LB, 0)
 
         def cardDefinitions(self):
-            return self.getTypedRuleContext(tablParser.CardDefinitionsContext,0)
+            return self.getTypedRuleContext(TablParser.CardDefinitionsContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_listOfCards
+            return TablParser.RULE_listOfCards
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitListOfCards" ):
@@ -1911,16 +1911,16 @@ class tablParser ( Parser ):
 
     def listOfCards(self):
 
-        localctx = tablParser.ListOfCardsContext(self, self._ctx, self.state)
+        localctx = TablParser.ListOfCardsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 54, self.RULE_listOfCards)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 289
-            self.match(tablParser.LISTOFCARDS)
+            self.match(TablParser.LISTOFCARDS)
             self.state = 290
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 291
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 292
             self.cardDefinitions()
         except RecognitionException as re:
@@ -1941,19 +1941,19 @@ class tablParser ( Parser ):
 
         def cardDefinition(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.CardDefinitionContext)
+                return self.getTypedRuleContexts(TablParser.CardDefinitionContext)
             else:
-                return self.getTypedRuleContext(tablParser.CardDefinitionContext,i)
+                return self.getTypedRuleContext(TablParser.CardDefinitionContext,i)
 
 
         def LB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.LB)
+                return self.getTokens(TablParser.LB)
             else:
-                return self.getToken(tablParser.LB, i)
+                return self.getToken(TablParser.LB, i)
 
         def getRuleIndex(self):
-            return tablParser.RULE_cardDefinitions
+            return TablParser.RULE_cardDefinitions
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCardDefinitions" ):
@@ -1966,7 +1966,7 @@ class tablParser ( Parser ):
 
     def cardDefinitions(self):
 
-        localctx = tablParser.CardDefinitionsContext(self, self._ctx, self.state)
+        localctx = TablParser.CardDefinitionsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 56, self.RULE_cardDefinitions)
         self._la = 0 # Token type
         try:
@@ -1981,9 +1981,9 @@ class tablParser ( Parser ):
                     self.state = 298
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==tablParser.LB:
+                    while _la==TablParser.LB:
                         self.state = 295
-                        self.match(tablParser.LB)
+                        self.match(TablParser.LB)
                         self.state = 300
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
@@ -2011,14 +2011,14 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def TAB(self):
-            return self.getToken(tablParser.TAB, 0)
+            return self.getToken(TablParser.TAB, 0)
 
         def cardNameAndPicture(self):
-            return self.getTypedRuleContext(tablParser.CardNameAndPictureContext,0)
+            return self.getTypedRuleContext(TablParser.CardNameAndPictureContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_cardDefinition
+            return TablParser.RULE_cardDefinition
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCardDefinition" ):
@@ -2031,12 +2031,12 @@ class tablParser ( Parser ):
 
     def cardDefinition(self):
 
-        localctx = tablParser.CardDefinitionContext(self, self._ctx, self.state)
+        localctx = TablParser.CardDefinitionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 58, self.RULE_cardDefinition)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 307
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 308
             self.cardNameAndPicture()
         except RecognitionException as re:
@@ -2056,34 +2056,34 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def cardName(self):
-            return self.getTypedRuleContext(tablParser.CardNameContext,0)
+            return self.getTypedRuleContext(TablParser.CardNameContext,0)
 
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def pictureName(self):
-            return self.getTypedRuleContext(tablParser.PictureNameContext,0)
+            return self.getTypedRuleContext(TablParser.PictureNameContext,0)
 
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def LB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.LB)
+                return self.getTokens(TablParser.LB)
             else:
-                return self.getToken(tablParser.LB, i)
+                return self.getToken(TablParser.LB, i)
 
         def cardEffects(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.CardEffectsContext)
+                return self.getTypedRuleContexts(TablParser.CardEffectsContext)
             else:
-                return self.getTypedRuleContext(tablParser.CardEffectsContext,i)
+                return self.getTypedRuleContext(TablParser.CardEffectsContext,i)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_cardNameAndPicture
+            return TablParser.RULE_cardNameAndPicture
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCardNameAndPicture" ):
@@ -2096,20 +2096,20 @@ class tablParser ( Parser ):
 
     def cardNameAndPicture(self):
 
-        localctx = tablParser.CardNameAndPictureContext(self, self._ctx, self.state)
+        localctx = TablParser.CardNameAndPictureContext(self, self._ctx, self.state)
         self.enterRule(localctx, 60, self.RULE_cardNameAndPicture)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 310
             self.cardName()
             self.state = 311
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 312
             self.pictureName()
             self.state = 313
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 314
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 315
             self.cardEffects()
             self.state = 320
@@ -2118,7 +2118,7 @@ class tablParser ( Parser ):
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     self.state = 316
-                    self.match(tablParser.LB)
+                    self.match(TablParser.LB)
                     self.state = 317
                     self.cardEffects() 
                 self.state = 322
@@ -2143,16 +2143,16 @@ class tablParser ( Parser ):
 
         def TAB(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.TAB)
+                return self.getTokens(TablParser.TAB)
             else:
-                return self.getToken(tablParser.TAB, i)
+                return self.getToken(TablParser.TAB, i)
 
         def resourceEffectOrActionEffect(self):
-            return self.getTypedRuleContext(tablParser.ResourceEffectOrActionEffectContext,0)
+            return self.getTypedRuleContext(TablParser.ResourceEffectOrActionEffectContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_cardEffects
+            return TablParser.RULE_cardEffects
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCardEffects" ):
@@ -2165,14 +2165,14 @@ class tablParser ( Parser ):
 
     def cardEffects(self):
 
-        localctx = tablParser.CardEffectsContext(self, self._ctx, self.state)
+        localctx = TablParser.CardEffectsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 62, self.RULE_cardEffects)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 323
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 324
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 325
             self.resourceEffectOrActionEffect()
         except RecognitionException as re:
@@ -2192,19 +2192,19 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def delim(self):
-            return self.getTypedRuleContext(tablParser.DelimContext,0)
+            return self.getTypedRuleContext(TablParser.DelimContext,0)
 
 
         def actionWithTarget(self):
-            return self.getTypedRuleContext(tablParser.ActionWithTargetContext,0)
+            return self.getTypedRuleContext(TablParser.ActionWithTargetContext,0)
 
 
         def resourceEffectWithTarget(self):
-            return self.getTypedRuleContext(tablParser.ResourceEffectWithTargetContext,0)
+            return self.getTypedRuleContext(TablParser.ResourceEffectWithTargetContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_resourceEffectOrActionEffect
+            return TablParser.RULE_resourceEffectOrActionEffect
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitResourceEffectOrActionEffect" ):
@@ -2217,7 +2217,7 @@ class tablParser ( Parser ):
 
     def resourceEffectOrActionEffect(self):
 
-        localctx = tablParser.ResourceEffectOrActionEffectContext(self, self._ctx, self.state)
+        localctx = TablParser.ResourceEffectOrActionEffectContext(self, self._ctx, self.state)
         self.enterRule(localctx, 64, self.RULE_resourceEffectOrActionEffect)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -2254,18 +2254,18 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def resourceEffect(self):
-            return self.getTypedRuleContext(tablParser.ResourceEffectContext,0)
+            return self.getTypedRuleContext(TablParser.ResourceEffectContext,0)
 
 
         def target(self):
-            return self.getTypedRuleContext(tablParser.TargetContext,0)
+            return self.getTypedRuleContext(TablParser.TargetContext,0)
 
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_resourceEffectWithTarget
+            return TablParser.RULE_resourceEffectWithTarget
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitResourceEffectWithTarget" ):
@@ -2278,7 +2278,7 @@ class tablParser ( Parser ):
 
     def resourceEffectWithTarget(self):
 
-        localctx = tablParser.ResourceEffectWithTargetContext(self, self._ctx, self.state)
+        localctx = TablParser.ResourceEffectWithTargetContext(self, self._ctx, self.state)
         self.enterRule(localctx, 66, self.RULE_resourceEffectWithTarget)
         self._la = 0 # Token type
         try:
@@ -2286,11 +2286,11 @@ class tablParser ( Parser ):
             self.state = 336
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==tablParser.TARGET:
+            if _la==TablParser.TARGET:
                 self.state = 333
                 self.target()
                 self.state = 334
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
 
 
             self.state = 338
@@ -2312,18 +2312,18 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def action(self):
-            return self.getTypedRuleContext(tablParser.ActionContext,0)
+            return self.getTypedRuleContext(TablParser.ActionContext,0)
 
 
         def target(self):
-            return self.getTypedRuleContext(tablParser.TargetContext,0)
+            return self.getTypedRuleContext(TablParser.TargetContext,0)
 
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_actionWithTarget
+            return TablParser.RULE_actionWithTarget
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitActionWithTarget" ):
@@ -2336,7 +2336,7 @@ class tablParser ( Parser ):
 
     def actionWithTarget(self):
 
-        localctx = tablParser.ActionWithTargetContext(self, self._ctx, self.state)
+        localctx = TablParser.ActionWithTargetContext(self, self._ctx, self.state)
         self.enterRule(localctx, 68, self.RULE_actionWithTarget)
         self._la = 0 # Token type
         try:
@@ -2344,11 +2344,11 @@ class tablParser ( Parser ):
             self.state = 343
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==tablParser.TARGET:
+            if _la==TablParser.TARGET:
                 self.state = 340
                 self.target()
                 self.state = 341
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
 
 
             self.state = 345
@@ -2370,10 +2370,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def TARGET(self):
-            return self.getToken(tablParser.TARGET, 0)
+            return self.getToken(TablParser.TARGET, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_target
+            return TablParser.RULE_target
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitTarget" ):
@@ -2386,12 +2386,12 @@ class tablParser ( Parser ):
 
     def target(self):
 
-        localctx = tablParser.TargetContext(self, self._ctx, self.state)
+        localctx = TablParser.TargetContext(self, self._ctx, self.state)
         self.enterRule(localctx, 70, self.RULE_target)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 347
-            self.match(tablParser.TARGET)
+            self.match(TablParser.TARGET)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2409,22 +2409,22 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def resourceName(self):
-            return self.getTypedRuleContext(tablParser.ResourceNameContext,0)
+            return self.getTypedRuleContext(TablParser.ResourceNameContext,0)
 
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def modifyType(self):
-            return self.getTypedRuleContext(tablParser.ModifyTypeContext,0)
+            return self.getTypedRuleContext(TablParser.ModifyTypeContext,0)
 
 
         def modifyNumber(self):
-            return self.getTypedRuleContext(tablParser.ModifyNumberContext,0)
+            return self.getTypedRuleContext(TablParser.ModifyNumberContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_resourceEffect
+            return TablParser.RULE_resourceEffect
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitResourceEffect" ):
@@ -2437,14 +2437,14 @@ class tablParser ( Parser ):
 
     def resourceEffect(self):
 
-        localctx = tablParser.ResourceEffectContext(self, self._ctx, self.state)
+        localctx = TablParser.ResourceEffectContext(self, self._ctx, self.state)
         self.enterRule(localctx, 72, self.RULE_resourceEffect)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 349
             self.resourceName()
             self.state = 350
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 351
             self.modifyType()
             self.state = 352
@@ -2466,13 +2466,13 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def COMMA(self):
-            return self.getToken(tablParser.COMMA, 0)
+            return self.getToken(TablParser.COMMA, 0)
 
         def PERIOD(self):
-            return self.getToken(tablParser.PERIOD, 0)
+            return self.getToken(TablParser.PERIOD, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_delim
+            return TablParser.RULE_delim
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitDelim" ):
@@ -2485,14 +2485,14 @@ class tablParser ( Parser ):
 
     def delim(self):
 
-        localctx = tablParser.DelimContext(self, self._ctx, self.state)
+        localctx = TablParser.DelimContext(self, self._ctx, self.state)
         self.enterRule(localctx, 74, self.RULE_delim)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 354
             _la = self._input.LA(1)
-            if not(_la==tablParser.COMMA or _la==tablParser.PERIOD):
+            if not(_la==TablParser.COMMA or _la==TablParser.PERIOD):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2514,10 +2514,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def ARITH(self):
-            return self.getToken(tablParser.ARITH, 0)
+            return self.getToken(TablParser.ARITH, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_modifyType
+            return TablParser.RULE_modifyType
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitModifyType" ):
@@ -2530,12 +2530,12 @@ class tablParser ( Parser ):
 
     def modifyType(self):
 
-        localctx = tablParser.ModifyTypeContext(self, self._ctx, self.state)
+        localctx = TablParser.ModifyTypeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 76, self.RULE_modifyType)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 356
-            self.match(tablParser.ARITH)
+            self.match(TablParser.ARITH)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2553,10 +2553,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NUMBER(self):
-            return self.getToken(tablParser.NUMBER, 0)
+            return self.getToken(TablParser.NUMBER, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_modifyNumber
+            return TablParser.RULE_modifyNumber
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitModifyNumber" ):
@@ -2569,12 +2569,12 @@ class tablParser ( Parser ):
 
     def modifyNumber(self):
 
-        localctx = tablParser.ModifyNumberContext(self, self._ctx, self.state)
+        localctx = TablParser.ModifyNumberContext(self, self._ctx, self.state)
         self.enterRule(localctx, 78, self.RULE_modifyNumber)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 358
-            self.match(tablParser.NUMBER)
+            self.match(TablParser.NUMBER)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2592,10 +2592,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tablParser.NAME, 0)
+            return self.getToken(TablParser.NAME, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_cardName
+            return TablParser.RULE_cardName
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitCardName" ):
@@ -2608,12 +2608,12 @@ class tablParser ( Parser ):
 
     def cardName(self):
 
-        localctx = tablParser.CardNameContext(self, self._ctx, self.state)
+        localctx = TablParser.CardNameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 80, self.RULE_cardName)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 360
-            self.match(tablParser.NAME)
+            self.match(TablParser.NAME)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2632,24 +2632,24 @@ class tablParser ( Parser ):
 
         def WAVY(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.WAVY)
+                return self.getTokens(TablParser.WAVY)
             else:
-                return self.getToken(tablParser.WAVY, i)
+                return self.getToken(TablParser.WAVY, i)
 
         def ID(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.ID)
+                return self.getTokens(TablParser.ID)
             else:
-                return self.getToken(tablParser.ID, i)
+                return self.getToken(TablParser.ID, i)
 
         def SPACE(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.SPACE)
+                return self.getTokens(TablParser.SPACE)
             else:
-                return self.getToken(tablParser.SPACE, i)
+                return self.getToken(TablParser.SPACE, i)
 
         def getRuleIndex(self):
-            return tablParser.RULE_pictureName
+            return TablParser.RULE_pictureName
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitPictureName" ):
@@ -2662,29 +2662,29 @@ class tablParser ( Parser ):
 
     def pictureName(self):
 
-        localctx = tablParser.PictureNameContext(self, self._ctx, self.state)
+        localctx = TablParser.PictureNameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 82, self.RULE_pictureName)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 362
-            self.match(tablParser.WAVY)
+            self.match(TablParser.WAVY)
             self.state = 363
-            self.match(tablParser.ID)
+            self.match(TablParser.ID)
             self.state = 368
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==tablParser.SPACE:
+            while _la==TablParser.SPACE:
                 self.state = 364
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
                 self.state = 365
-                self.match(tablParser.ID)
+                self.match(TablParser.ID)
                 self.state = 370
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
             self.state = 371
-            self.match(tablParser.WAVY)
+            self.match(TablParser.WAVY)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2702,30 +2702,30 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def GAMEENDSWHEN(self):
-            return self.getToken(tablParser.GAMEENDSWHEN, 0)
+            return self.getToken(TablParser.GAMEENDSWHEN, 0)
 
         def COLON(self):
-            return self.getToken(tablParser.COLON, 0)
+            return self.getToken(TablParser.COLON, 0)
 
         def LB(self):
-            return self.getToken(tablParser.LB, 0)
+            return self.getToken(TablParser.LB, 0)
 
         def gameEndConditionDef(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.GameEndConditionDefContext)
+                return self.getTypedRuleContexts(TablParser.GameEndConditionDefContext)
             else:
-                return self.getTypedRuleContext(tablParser.GameEndConditionDefContext,i)
+                return self.getTypedRuleContext(TablParser.GameEndConditionDefContext,i)
 
 
         def endOrAndOr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tablParser.EndOrAndOrContext)
+                return self.getTypedRuleContexts(TablParser.EndOrAndOrContext)
             else:
-                return self.getTypedRuleContext(tablParser.EndOrAndOrContext,i)
+                return self.getTypedRuleContext(TablParser.EndOrAndOrContext,i)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_gameEnd
+            return TablParser.RULE_gameEnd
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitGameEnd" ):
@@ -2738,17 +2738,17 @@ class tablParser ( Parser ):
 
     def gameEnd(self):
 
-        localctx = tablParser.GameEndContext(self, self._ctx, self.state)
+        localctx = TablParser.GameEndContext(self, self._ctx, self.state)
         self.enterRule(localctx, 84, self.RULE_gameEnd)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 373
-            self.match(tablParser.GAMEENDSWHEN)
+            self.match(TablParser.GAMEENDSWHEN)
             self.state = 374
-            self.match(tablParser.COLON)
+            self.match(TablParser.COLON)
             self.state = 375
-            self.match(tablParser.LB)
+            self.match(TablParser.LB)
             self.state = 379 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -2760,7 +2760,7 @@ class tablParser ( Parser ):
                 self.state = 381 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==tablParser.TAB):
+                if not (_la==TablParser.TAB):
                     break
 
         except RecognitionException as re:
@@ -2780,22 +2780,22 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def LB(self):
-            return self.getToken(tablParser.LB, 0)
+            return self.getToken(TablParser.LB, 0)
 
         def AND(self):
-            return self.getToken(tablParser.AND, 0)
+            return self.getToken(TablParser.AND, 0)
 
         def OR(self):
-            return self.getToken(tablParser.OR, 0)
+            return self.getToken(TablParser.OR, 0)
 
         def PERIOD(self):
-            return self.getToken(tablParser.PERIOD, 0)
+            return self.getToken(TablParser.PERIOD, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_endOrAndOr
+            return TablParser.RULE_endOrAndOr
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitEndOrAndOr" ):
@@ -2808,31 +2808,31 @@ class tablParser ( Parser ):
 
     def endOrAndOr(self):
 
-        localctx = tablParser.EndOrAndOrContext(self, self._ctx, self.state)
+        localctx = TablParser.EndOrAndOrContext(self, self._ctx, self.state)
         self.enterRule(localctx, 86, self.RULE_endOrAndOr)
         self._la = 0 # Token type
         try:
             self.state = 387
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [tablParser.SPACE]:
+            if token in [TablParser.SPACE]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 383
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
                 self.state = 384
                 _la = self._input.LA(1)
-                if not(_la==tablParser.OR or _la==tablParser.AND):
+                if not(_la==TablParser.OR or _la==TablParser.AND):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
                 self.state = 385
-                self.match(tablParser.LB)
+                self.match(TablParser.LB)
                 pass
-            elif token in [tablParser.PERIOD]:
+            elif token in [TablParser.PERIOD]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 386
-                self.match(tablParser.PERIOD)
+                self.match(TablParser.PERIOD)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -2854,14 +2854,14 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def TAB(self):
-            return self.getToken(tablParser.TAB, 0)
+            return self.getToken(TablParser.TAB, 0)
 
         def gameEndCondition(self):
-            return self.getTypedRuleContext(tablParser.GameEndConditionContext,0)
+            return self.getTypedRuleContext(TablParser.GameEndConditionContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_gameEndConditionDef
+            return TablParser.RULE_gameEndConditionDef
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitGameEndConditionDef" ):
@@ -2874,12 +2874,12 @@ class tablParser ( Parser ):
 
     def gameEndConditionDef(self):
 
-        localctx = tablParser.GameEndConditionDefContext(self, self._ctx, self.state)
+        localctx = TablParser.GameEndConditionDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 88, self.RULE_gameEndConditionDef)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 389
-            self.match(tablParser.TAB)
+            self.match(TablParser.TAB)
             self.state = 390
             self.gameEndCondition()
         except RecognitionException as re:
@@ -2899,31 +2899,31 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def APLAYERREACHES(self):
-            return self.getToken(tablParser.APLAYERREACHES, 0)
+            return self.getToken(TablParser.APLAYERREACHES, 0)
 
         def SPACE(self, i:int=None):
             if i is None:
-                return self.getTokens(tablParser.SPACE)
+                return self.getTokens(TablParser.SPACE)
             else:
-                return self.getToken(tablParser.SPACE, i)
+                return self.getToken(TablParser.SPACE, i)
 
         def gameEndConditionQuant(self):
-            return self.getTypedRuleContext(tablParser.GameEndConditionQuantContext,0)
+            return self.getTypedRuleContext(TablParser.GameEndConditionQuantContext,0)
 
 
         def gameEndResource(self):
-            return self.getTypedRuleContext(tablParser.GameEndResourceContext,0)
+            return self.getTypedRuleContext(TablParser.GameEndResourceContext,0)
 
 
         def RESOURCETOKENS(self):
-            return self.getToken(tablParser.RESOURCETOKENS, 0)
+            return self.getToken(TablParser.RESOURCETOKENS, 0)
 
         def gameEndMoreOrLess(self):
-            return self.getTypedRuleContext(tablParser.GameEndMoreOrLessContext,0)
+            return self.getTypedRuleContext(TablParser.GameEndMoreOrLessContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_gameEndCondition
+            return TablParser.RULE_gameEndCondition
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitGameEndCondition" ):
@@ -2936,35 +2936,35 @@ class tablParser ( Parser ):
 
     def gameEndCondition(self):
 
-        localctx = tablParser.GameEndConditionContext(self, self._ctx, self.state)
+        localctx = TablParser.GameEndConditionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 90, self.RULE_gameEndCondition)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 392
-            self.match(tablParser.APLAYERREACHES)
+            self.match(TablParser.APLAYERREACHES)
             self.state = 393
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 394
             self.gameEndConditionQuant()
             self.state = 395
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 399
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==tablParser.OR:
+            if _la==TablParser.OR:
                 self.state = 396
                 self.gameEndMoreOrLess()
                 self.state = 397
-                self.match(tablParser.SPACE)
+                self.match(TablParser.SPACE)
 
 
             self.state = 401
             self.gameEndResource()
             self.state = 402
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 403
-            self.match(tablParser.RESOURCETOKENS)
+            self.match(TablParser.RESOURCETOKENS)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2982,10 +2982,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NUMBER(self):
-            return self.getToken(tablParser.NUMBER, 0)
+            return self.getToken(TablParser.NUMBER, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_gameEndConditionQuant
+            return TablParser.RULE_gameEndConditionQuant
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitGameEndConditionQuant" ):
@@ -2998,12 +2998,12 @@ class tablParser ( Parser ):
 
     def gameEndConditionQuant(self):
 
-        localctx = tablParser.GameEndConditionQuantContext(self, self._ctx, self.state)
+        localctx = TablParser.GameEndConditionQuantContext(self, self._ctx, self.state)
         self.enterRule(localctx, 92, self.RULE_gameEndConditionQuant)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 405
-            self.match(tablParser.NUMBER)
+            self.match(TablParser.NUMBER)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3021,17 +3021,17 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def OR(self):
-            return self.getToken(tablParser.OR, 0)
+            return self.getToken(TablParser.OR, 0)
 
         def SPACE(self):
-            return self.getToken(tablParser.SPACE, 0)
+            return self.getToken(TablParser.SPACE, 0)
 
         def moreOrLess(self):
-            return self.getTypedRuleContext(tablParser.MoreOrLessContext,0)
+            return self.getTypedRuleContext(TablParser.MoreOrLessContext,0)
 
 
         def getRuleIndex(self):
-            return tablParser.RULE_gameEndMoreOrLess
+            return TablParser.RULE_gameEndMoreOrLess
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitGameEndMoreOrLess" ):
@@ -3044,14 +3044,14 @@ class tablParser ( Parser ):
 
     def gameEndMoreOrLess(self):
 
-        localctx = tablParser.GameEndMoreOrLessContext(self, self._ctx, self.state)
+        localctx = TablParser.GameEndMoreOrLessContext(self, self._ctx, self.state)
         self.enterRule(localctx, 94, self.RULE_gameEndMoreOrLess)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 407
-            self.match(tablParser.OR)
+            self.match(TablParser.OR)
             self.state = 408
-            self.match(tablParser.SPACE)
+            self.match(TablParser.SPACE)
             self.state = 409
             self.moreOrLess()
         except RecognitionException as re:
@@ -3071,10 +3071,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def MOREORLESS(self):
-            return self.getToken(tablParser.MOREORLESS, 0)
+            return self.getToken(TablParser.MOREORLESS, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_moreOrLess
+            return TablParser.RULE_moreOrLess
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitMoreOrLess" ):
@@ -3087,12 +3087,12 @@ class tablParser ( Parser ):
 
     def moreOrLess(self):
 
-        localctx = tablParser.MoreOrLessContext(self, self._ctx, self.state)
+        localctx = TablParser.MoreOrLessContext(self, self._ctx, self.state)
         self.enterRule(localctx, 96, self.RULE_moreOrLess)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 411
-            self.match(tablParser.MOREORLESS)
+            self.match(TablParser.MOREORLESS)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3110,10 +3110,10 @@ class tablParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tablParser.NAME, 0)
+            return self.getToken(TablParser.NAME, 0)
 
         def getRuleIndex(self):
-            return tablParser.RULE_gameEndResource
+            return TablParser.RULE_gameEndResource
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitGameEndResource" ):
@@ -3126,12 +3126,12 @@ class tablParser ( Parser ):
 
     def gameEndResource(self):
 
-        localctx = tablParser.GameEndResourceContext(self, self._ctx, self.state)
+        localctx = TablParser.GameEndResourceContext(self, self._ctx, self.state)
         self.enterRule(localctx, 98, self.RULE_gameEndResource)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 413
-            self.match(tablParser.NAME)
+            self.match(TablParser.NAME)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

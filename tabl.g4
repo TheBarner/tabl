@@ -1,4 +1,4 @@
-grammar tabl;
+grammar Tabl;
 
 rules: title LB* contents LB* phases LB* starting LB* gameEnd LB*  listOfCards LB*;// setup, gameEnd, wincon
 
@@ -66,7 +66,7 @@ PAR_CLOSE: ')';
 COLON: ':';
 WAVY: '~';
 HASH: '#';
-LB: '\r' | '\n';
+LB: '\r' | '\n' | '\r\n';
 X: 'x';
 ARITH: '*' | '+' | '-' | '/';
 PERIOD: '.';
