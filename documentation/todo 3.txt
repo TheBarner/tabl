@@ -1,0 +1,6 @@
+irodalomkutatás
+background and technologies- nyelv példával (vue, python stb.)
+lexikai szintaktikai elemzés általánosságban, példával (milyen tokenek), ANTLR példa grammar, technológiákról röviden 2-3 bekezdés
+the Tabl programming language
+3. fejezet új név
+conclusion 
