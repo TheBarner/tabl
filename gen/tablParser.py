@@ -34,8 +34,8 @@ def serializedATN():
         1,24,1,24,1,24,5,24,274,8,24,10,24,12,24,277,9,24,1,24,1,24,1,24,
         1,24,1,25,1,25,1,25,1,25,1,25,1,26,1,26,1,27,1,27,1,27,1,27,1,27,
         1,28,1,28,5,28,297,8,28,10,28,12,28,300,9,28,1,28,5,28,303,8,28,
-        10,28,12,28,306,9,28,1,29,1,29,1,29,1,30,1,30,1,30,1,30,1,30,1,30,
-        1,30,1,30,5,30,319,8,30,10,30,12,30,322,9,30,1,31,1,31,1,31,1,31,
+        10,28,12,28,306,9,28,1,29,1,29,1,29,1,29,1,29,1,29,5,29,314,8,29,
+        10,29,12,29,317,9,29,1,30,1,30,1,30,1,30,1,30,1,31,1,31,1,31,1,31,
         1,32,1,32,3,32,330,8,32,1,32,1,32,1,33,1,33,1,33,3,33,337,8,33,1,
         33,1,33,1,34,1,34,1,34,3,34,344,8,34,1,34,1,34,1,35,1,35,1,36,1,
         36,1,36,1,36,1,36,1,37,1,37,1,38,1,38,1,39,1,39,1,40,1,40,1,41,1,
@@ -53,7 +53,7 @@ def serializedATN():
         0,0,30,218,1,0,0,0,32,229,1,0,0,0,34,232,1,0,0,0,36,249,1,0,0,0,
         38,251,1,0,0,0,40,255,1,0,0,0,42,261,1,0,0,0,44,263,1,0,0,0,46,265,
         1,0,0,0,48,267,1,0,0,0,50,282,1,0,0,0,52,287,1,0,0,0,54,289,1,0,
-        0,0,56,294,1,0,0,0,58,307,1,0,0,0,60,310,1,0,0,0,62,323,1,0,0,0,
+        0,0,56,294,1,0,0,0,58,307,1,0,0,0,60,318,1,0,0,0,62,323,1,0,0,0,
         64,329,1,0,0,0,66,336,1,0,0,0,68,343,1,0,0,0,70,347,1,0,0,0,72,349,
         1,0,0,0,74,354,1,0,0,0,76,356,1,0,0,0,78,358,1,0,0,0,80,360,1,0,
         0,0,82,362,1,0,0,0,84,373,1,0,0,0,86,387,1,0,0,0,88,389,1,0,0,0,
@@ -114,18 +114,18 @@ def serializedATN():
         296,1,0,0,0,298,299,1,0,0,0,299,301,1,0,0,0,300,298,1,0,0,0,301,
         303,3,58,29,0,302,298,1,0,0,0,303,306,1,0,0,0,304,302,1,0,0,0,304,
         305,1,0,0,0,305,57,1,0,0,0,306,304,1,0,0,0,307,308,5,2,0,0,308,309,
-        3,60,30,0,309,59,1,0,0,0,310,311,3,80,40,0,311,312,5,13,0,0,312,
-        313,3,82,41,0,313,314,5,6,0,0,314,315,5,9,0,0,315,320,3,62,31,0,
-        316,317,5,9,0,0,317,319,3,62,31,0,318,316,1,0,0,0,319,322,1,0,0,
-        0,320,318,1,0,0,0,320,321,1,0,0,0,321,61,1,0,0,0,322,320,1,0,0,0,
-        323,324,5,2,0,0,324,325,5,2,0,0,325,326,3,64,32,0,326,63,1,0,0,0,
-        327,330,3,68,34,0,328,330,3,66,33,0,329,327,1,0,0,0,329,328,1,0,
-        0,0,330,331,1,0,0,0,331,332,3,74,37,0,332,65,1,0,0,0,333,334,3,70,
-        35,0,334,335,5,13,0,0,335,337,1,0,0,0,336,333,1,0,0,0,336,337,1,
-        0,0,0,337,338,1,0,0,0,338,339,3,72,36,0,339,67,1,0,0,0,340,341,3,
-        70,35,0,341,342,5,13,0,0,342,344,1,0,0,0,343,340,1,0,0,0,343,344,
-        1,0,0,0,344,345,1,0,0,0,345,346,3,40,20,0,346,69,1,0,0,0,347,348,
-        5,32,0,0,348,71,1,0,0,0,349,350,3,18,9,0,350,351,5,13,0,0,351,352,
+        3,60,30,0,309,310,5,9,0,0,310,315,3,62,31,0,311,312,5,9,0,0,312,
+        314,3,62,31,0,313,311,1,0,0,0,314,317,1,0,0,0,315,313,1,0,0,0,315,
+        316,1,0,0,0,316,59,1,0,0,0,317,315,1,0,0,0,318,319,3,80,40,0,319,
+        320,5,13,0,0,320,321,3,82,41,0,321,322,5,6,0,0,322,61,1,0,0,0,323,
+        324,5,2,0,0,324,325,5,2,0,0,325,326,3,64,32,0,326,63,1,0,0,0,327,
+        330,3,68,34,0,328,330,3,66,33,0,329,327,1,0,0,0,329,328,1,0,0,0,
+        330,331,1,0,0,0,331,332,3,74,37,0,332,65,1,0,0,0,333,334,3,70,35,
+        0,334,335,5,13,0,0,335,337,1,0,0,0,336,333,1,0,0,0,336,337,1,0,0,
+        0,337,338,1,0,0,0,338,339,3,72,36,0,339,67,1,0,0,0,340,341,3,70,
+        35,0,341,342,5,13,0,0,342,344,1,0,0,0,343,340,1,0,0,0,343,344,1,
+        0,0,0,344,345,1,0,0,0,345,346,3,40,20,0,346,69,1,0,0,0,347,348,5,
+        32,0,0,348,71,1,0,0,0,349,350,3,18,9,0,350,351,5,13,0,0,351,352,
         3,76,38,0,352,353,3,78,39,0,353,73,1,0,0,0,354,355,7,2,0,0,355,75,
         1,0,0,0,356,357,5,11,0,0,357,77,1,0,0,0,358,359,5,34,0,0,359,79,
         1,0,0,0,360,361,5,35,0,0,361,81,1,0,0,0,362,363,5,7,0,0,363,368,
@@ -144,7 +144,7 @@ def serializedATN():
         0,0,407,408,5,20,0,0,408,409,5,13,0,0,409,410,3,96,48,0,410,95,1,
         0,0,0,411,412,5,22,0,0,412,97,1,0,0,0,413,414,5,35,0,0,414,99,1,
         0,0,0,23,104,111,118,125,132,139,150,162,174,205,224,244,275,298,
-        304,320,329,336,343,368,381,387,399
+        304,315,329,336,343,368,381,387,399
     ]
 
 class TablParser ( Parser ):
@@ -205,7 +205,7 @@ class TablParser ( Parser ):
     RULE_cardDefinitions = 28
     RULE_cardDefinition = 29
     RULE_cardNameAndPicture = 30
-    RULE_cardEffects = 31
+    RULE_cardEffect = 31
     RULE_resourceEffectOrActionEffect = 32
     RULE_resourceEffectWithTarget = 33
     RULE_actionWithTarget = 34
@@ -232,7 +232,7 @@ class TablParser ( Parser ):
                    "phase", "phaseName", "actionDef", "action", "doTimes", 
                    "actionName", "actionCardResource", "starting", "deckOfDef", 
                    "personalDeckDef", "listOfCards", "cardDefinitions", 
-                   "cardDefinition", "cardNameAndPicture", "cardEffects", 
+                   "cardDefinition", "cardNameAndPicture", "cardEffect", 
                    "resourceEffectOrActionEffect", "resourceEffectWithTarget", 
                    "actionWithTarget", "target", "resourceEffect", "delim", 
                    "modifyType", "modifyNumber", "cardName", "pictureName", 
@@ -2017,6 +2017,19 @@ class TablParser ( Parser ):
             return self.getTypedRuleContext(TablParser.CardNameAndPictureContext,0)
 
 
+        def LB(self, i:int=None):
+            if i is None:
+                return self.getTokens(TablParser.LB)
+            else:
+                return self.getToken(TablParser.LB, i)
+
+        def cardEffect(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(TablParser.CardEffectContext)
+            else:
+                return self.getTypedRuleContext(TablParser.CardEffectContext,i)
+
+
         def getRuleIndex(self):
             return TablParser.RULE_cardDefinition
 
@@ -2039,6 +2052,23 @@ class TablParser ( Parser ):
             self.match(TablParser.TAB)
             self.state = 308
             self.cardNameAndPicture()
+            self.state = 309
+            self.match(TablParser.LB)
+            self.state = 310
+            self.cardEffect()
+            self.state = 315
+            self._errHandler.sync(self)
+            _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
+                    self.state = 311
+                    self.match(TablParser.LB)
+                    self.state = 312
+                    self.cardEffect() 
+                self.state = 317
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2069,19 +2099,6 @@ class TablParser ( Parser ):
         def COLON(self):
             return self.getToken(TablParser.COLON, 0)
 
-        def LB(self, i:int=None):
-            if i is None:
-                return self.getTokens(TablParser.LB)
-            else:
-                return self.getToken(TablParser.LB, i)
-
-        def cardEffects(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(TablParser.CardEffectsContext)
-            else:
-                return self.getTypedRuleContext(TablParser.CardEffectsContext,i)
-
-
         def getRuleIndex(self):
             return TablParser.RULE_cardNameAndPicture
 
@@ -2100,31 +2117,14 @@ class TablParser ( Parser ):
         self.enterRule(localctx, 60, self.RULE_cardNameAndPicture)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 310
+            self.state = 318
             self.cardName()
-            self.state = 311
+            self.state = 319
             self.match(TablParser.SPACE)
-            self.state = 312
-            self.pictureName()
-            self.state = 313
-            self.match(TablParser.COLON)
-            self.state = 314
-            self.match(TablParser.LB)
-            self.state = 315
-            self.cardEffects()
             self.state = 320
-            self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    self.state = 316
-                    self.match(TablParser.LB)
-                    self.state = 317
-                    self.cardEffects() 
-                self.state = 322
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
-
+            self.pictureName()
+            self.state = 321
+            self.match(TablParser.COLON)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2134,7 +2134,7 @@ class TablParser ( Parser ):
         return localctx
 
 
-    class CardEffectsContext(ParserRuleContext):
+    class CardEffectContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2152,21 +2152,21 @@ class TablParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return TablParser.RULE_cardEffects
+            return TablParser.RULE_cardEffect
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCardEffects" ):
-                return visitor.visitCardEffects(self)
+            if hasattr( visitor, "visitCardEffect" ):
+                return visitor.visitCardEffect(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def cardEffects(self):
+    def cardEffect(self):
 
-        localctx = TablParser.CardEffectsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 62, self.RULE_cardEffects)
+        localctx = TablParser.CardEffectContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 62, self.RULE_cardEffect)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 323

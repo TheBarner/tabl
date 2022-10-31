@@ -34,9 +34,9 @@ personalDeckDef: cardList;
 
 listOfCards: LISTOFCARDS COLON LB cardDefinitions;
 cardDefinitions: cardDefinition (LB* cardDefinition)*;
-cardDefinition: TAB cardNameAndPicture;
-cardNameAndPicture: cardName SPACE pictureName COLON LB cardEffects (LB cardEffects)*;
-cardEffects: TAB TAB resourceEffectOrActionEffect;
+cardDefinition: TAB cardNameAndPicture LB cardEffect (LB cardEffect)*;
+cardNameAndPicture: cardName SPACE pictureName COLON;
+cardEffect: TAB TAB resourceEffectOrActionEffect;
 resourceEffectOrActionEffect: (actionWithTarget | resourceEffectWithTarget) delim;
 resourceEffectWithTarget: (target SPACE)? resourceEffect;
 actionWithTarget: (target SPACE)? action;

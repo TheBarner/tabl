@@ -1,14 +1,11 @@
 # Generated from C:/Users/barna/PycharmProjects/tabl\Tabl.g4 by ANTLR 4.10.1
 from antlr4 import *
-import main
 if __name__ is not None and "." in __name__:
     from .TablParser import TablParser
 else:
     from TablParser import TablParser
 
 # This class defines a complete generic visitor for a parse tree produced by TablParser.
-
-cardList = []
 
 class TablVisitor(ParseTreeVisitor):
 
@@ -59,7 +56,7 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#resourceName.
     def visitResourceName(self, ctx:TablParser.ResourceNameContext):
-        return ctx.getText().strip('\'')
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#resourceNumber.
@@ -114,22 +111,22 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#action.
     def visitAction(self, ctx:TablParser.ActionContext):
-        return {'actionName': self.visit(ctx.actionName()), 'num': self.visit(ctx.doTimes()), 'cardOrResource': self.visit(ctx.actionCardResource())}
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#doTimes.
     def visitDoTimes(self, ctx:TablParser.DoTimesContext):
-        return ctx.getText()
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#actionName.
     def visitActionName(self, ctx:TablParser.ActionNameContext):
-        return ctx.getText()
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#actionCardResource.
     def visitActionCardResource(self, ctx:TablParser.ActionCardResourceContext):
-        return ctx.getText()
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#starting.
@@ -165,10 +162,11 @@ class TablVisitor(ParseTreeVisitor):
         cardInfo['cardName'] = namePicInfo['name']
         cardInfo['cardPicture'] = namePicInfo['pic']
         cardInfo['effects'] = []
-        for cardEffect in ctx.cardEffect():
+        for cardEffect in ctx.cardEffects():
             cardInfo['effects'].append(self.visit(cardEffect))
-        cardList.append(main.Card(cardInfo['cardName'], cardInfo['effects'], cardInfo['cardPicture']))
-
+        print(cardInfo)
+        print(ctx.getText())
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#cardNameAndPicture.
@@ -179,43 +177,35 @@ class TablVisitor(ParseTreeVisitor):
         return namePicInfo
 
 
-    # Visit a parse tree produced by TablParser#cardEffect.
-    def visitCardEffect(self, ctx:TablParser.CardEffectContext):
-        return self.visit(ctx.resourceEffectOrActionEffect())
+
+    # Visit a parse tree produced by TablParser#cardEffects.
+    def visitCardEffects(self, ctx:TablParser.CardEffectsContext):
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#resourceEffectOrActionEffect.
     def visitResourceEffectOrActionEffect(self, ctx:TablParser.ResourceEffectOrActionEffectContext):
-        if ctx.actionWithTarget(): return self.visit(ctx.actionWithTarget())
-        elif ctx.resourceEffectWithTarget(): return self.visit(ctx.resourceEffectWithTarget())
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#resourceEffectWithTarget.
     def visitResourceEffectWithTarget(self, ctx:TablParser.ResourceEffectWithTargetContext):
-        info = {}
-        info['type'] = 'resource'
-        if ctx.target(): info['target'] = self.visit(ctx.target())
-        info['effect'] = self.visit(ctx.resourceEffect())
-        return info
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#actionWithTarget.
     def visitActionWithTarget(self, ctx:TablParser.ActionWithTargetContext):
-        info = {}
-        info['type'] = 'action'
-        if ctx.target(): info['target'] = self.visit(ctx.target())
-        info['effect'] = self.visit(ctx.action())
-        return info
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#target.
     def visitTarget(self, ctx:TablParser.TargetContext):
-        return ctx.getText()
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#resourceEffect.
     def visitResourceEffect(self, ctx:TablParser.ResourceEffectContext):
-        return {'resourceName': self.visit(ctx.resourceName()), 'resourceEffect': self.visit(ctx.modifyType()), 'number': self.visit(ctx.modifyNumber())}
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#delim.
@@ -225,12 +215,12 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#modifyType.
     def visitModifyType(self, ctx:TablParser.ModifyTypeContext):
-        return ctx.getText()
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#modifyNumber.
     def visitModifyNumber(self, ctx:TablParser.ModifyNumberContext):
-        return ctx.getText()
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#cardName.

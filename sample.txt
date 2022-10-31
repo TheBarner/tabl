@@ -26,7 +26,8 @@ The game ends when:
 
 List of cards:
     'Gold' ~gold coin~:
-        'Gold' +1.
+        'Gold' +3,
+        'Ruby' -2.
 
-    'Alma' ~alma~:
-        draw 1 card.
+    'Cycle' ~cycle~:
+        draw 2 card.
