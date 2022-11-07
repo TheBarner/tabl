@@ -37,17 +37,19 @@ class MyServer(BaseHTTPRequestHandler):
         self.wfile.write(bytes(self.picLink, 'utf-8'))
 
 class Resource:
-    def __init__(self, name, limit, picture):
+    def __init__(self, name, limit, picture, options = []):
         self.name = name
         self.limit = limit
         self.supply = limit
         self.picture = picture
+        self.visible = 'visible' in options
+        self.perTurn = 'per-turn' in options
         #response = requests.get(f"https://api.pexels.com/v1/search?query={picture}", headers={"Authorization" : "563492ad6f917000010000014363b809657648f1a8b3df00ea4eb9e2"})
         #self.pictureUrl = response.json()['photos'][0]['src']['small']
         #print(self.pictureUrl)
 
-    def __str__(self):
-        return f'{self.name}: {self.supply}, max: {self.limit}'
+    def __repr__(self):
+        return f'{self.name}: {self.supply}, max: {self.limit}, visible: {self.visible}, per-turn: {self.perTurn}'
 
     def take(self, num):
         if self.limit == 0:
@@ -59,7 +61,8 @@ class Resource:
         return 0
 
     def restore(self, num):
-        self.supply += num
+        if self.limit != 0:
+            self.supply += num
         return num
 
 
@@ -80,7 +83,7 @@ class Card:
                             self.whenPlayedActions.append(draw)
                             self.whenPlayedArgs.append({'number': effect['num']})
                 case 'resource':
-                    if effect['resourceName'] in resourcesList.keys():
+                    #if effect['resourceName'] in resourcesList.keys():
                         args = {'number': int(effect['number']), 'resourceName': effect['resourceName']}
                         self.whenPlayedArgs.append(args)
                         match effect['resourceEffect']:
@@ -91,7 +94,7 @@ class Card:
         self.picture = picture
 
     def __repr__(self):
-        return self.name
+        return f'{self.name} ({self.id})'
 
     def play(self, activatedBy):
         for i in range(len(self.whenPlayedArgs)):
@@ -105,6 +108,12 @@ class Deck:
         self.inDeck = []
         self.discard = list.copy(cardList)
         self.shuffleDeck()
+
+    def __repr__(self):
+        cards = []
+        for card in self.cardList:
+            cards.append(card.__repr__())
+        return f"[[{', '.join(cards)}]]"
 
     def shuffleDeck(self):
         self.inDeck = list.copy(self.discard)
@@ -128,7 +137,9 @@ class Deck:
 
 
 class Player:
-    def __init__(self, resources, playerName, deck = Deck()):
+    resourcesList = []
+    def __init__(self, resources, playerName, allResources, deck = Deck()):
+        Player.resourcesList = allResources
         self.resources = {}
         for resource, number in resources.items():
             self.resources[resource] = number
@@ -137,8 +148,8 @@ class Player:
         self.hand = []
         self.deck = deck
 
-    def __str__(self):
-        return f'{self.name}: {self.resources}'
+    def __repr__(self):
+        return f'{self.name}: {self.resources}, deck: {self.deck}'
 
     def draw(self, num):
         cardsDrawn = self.deck.drawNFromDeck(num)
@@ -148,15 +159,18 @@ class Player:
 
     def gainResource(self, resourceName, num):
         oldNum = self.resources[resourceName]
-        numToTake = resourcesList[resourceName].take(num)
+        numToTake = Player.resourcesList[resourceName].take(num)
         self.resources[resourceName] += numToTake
         print(f'{self.name} took {numToTake} {resourceName} resources, they had {oldNum} and now have {self.resources[resourceName]}')
 
     def spendResource(self, resourceName, num):
         oldNum = self.resources[resourceName]
-        numToSpend = resourcesList[resourceName].restore(num)
+        numToSpend = Player.resourcesList[resourceName].restore(num)
         self.resources[resourceName] -= min(self.resources[resourceName], num)
         print(f'{self.name} spent {numToSpend} {resourceName} resources, they had {oldNum} and now have {self.resources[resourceName]}')
+
+    def beginTurn(self):
+        self.draw(5)
 
     def endTurn(self):
         for card in self.playedCards:
@@ -167,12 +181,9 @@ class Player:
         self.hand.clear()
 
 
-resourcesList = {'Gold': Resource('Gold', 100, 'gold token'), 'Ruby': Resource('Ruby', 100, 'ruby token')}
+
+
 if __name__ == '__main__':
-
-    player1 = Player({'Gold': 10, 'Ruby': 10}, 'Barner')
-    activePlayer = player1
-
     inputStream = FileStream("sample.txt")
     lexer = TablLexer(inputStream)
     stream = CommonTokenStream(lexer)
@@ -180,16 +191,24 @@ if __name__ == '__main__':
     tree = parser.rules()
     visitor = TablVisitor()
     visitor.visit(tree)
-    print(cardList)
-    player1.deck = Deck([cardList[0], cardList[0], cardList[0], cardList[0], cardList[0]])
-    cardList[1].play(player1)
-    cardList[1].play(player1)
-    cardList[1].play(player1)
-    player1.endTurn()
-    cardList[1].play(player1)
-    cardList[1].play(player1)
-    cardList[1].play(player1)
-    commonDeck = Deck()
+    commonDeck = commonDeck[0]
+    print(f'List of resources: {resourcesList}')
+    print(f'Common deck: {commonDeck}')
+    print(f'Players: {players}')
+
+    while True:
+        players = itertools.cycle(players)
+        activePlayer = next(players)
+        activePlayer.beginTurn()
+        print(f'cards in active player\'s hand: {activePlayer.hand}')
+        while len(activePlayer.hand) > 0:
+            toPlay = input('index of card to be played: ')
+            activePlayer.hand[int(toPlay)].play(activePlayer)
+            print(f'cards in active player\'s hand: {activePlayer.hand}')
+            print(resourcesList)
+        activePlayer.endTurn()
+
+
 
 
     # hostName = 'localhost'
@@ -206,10 +225,3 @@ if __name__ == '__main__':
     #
     # webServer.server_close()
     # print('server stopped')
-
-
-
-
-
-
-

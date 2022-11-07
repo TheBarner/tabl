@@ -9,12 +9,22 @@ else:
 # This class defines a complete generic visitor for a parse tree produced by TablParser.
 
 cardList = []
+cardArgs = {}
+resourcesList = {}
+commonDeckCardList = []
+commonDeck = []
+playerCount = 2
+players = []
+
 
 class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#rules.
     def visitRules(self, ctx:TablParser.RulesContext):
-        return self.visitChildren(ctx)
+        self.visit(ctx.listOfCards())
+        self.visit(ctx.contents())
+        self.visit(ctx.starting())
+        print(cardArgs)
 
 
     # Visit a parse tree produced by TablParser#title.
@@ -44,17 +54,37 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#contentRule.
     def visitContentRule(self, ctx:TablParser.ContentRuleContext):
-        return self.visitChildren(ctx)
+        for resourceRule in ctx.resourceRuleDef():
+            resourceArgs = self.visit(resourceRule)
+            resource = main.Resource(*resourceArgs)
+            resourcesList[resource.name] = resource
+        commonDeckDef = self.visit(ctx.commonDeckDef())
+        for cardName in commonDeckDef.keys():
+            for __ in range(commonDeckDef[cardName]):
+                commonDeckCardList.append(main.Card(*cardArgs[cardName]))
+        commonDeck.append(main.Deck(commonDeckCardList))
+
 
 
     # Visit a parse tree produced by TablParser#resourceRuleDef.
     def visitResourceRuleDef(self, ctx:TablParser.ResourceRuleDefContext):
-        return self.visitChildren(ctx)
+        options = []
+        if ctx.resourceOptions(): options = self.visit(ctx.resourceOptions())
+        name, maxNum = self.visit(ctx.resourceRule())
+        if maxNum == "unlimited": maxNum = 0
+        return name, int(maxNum), 'placeholder', options
 
 
     # Visit a parse tree produced by TablParser#resourceRule.
     def visitResourceRule(self, ctx:TablParser.ResourceRuleContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.resourceName()), self.visit(ctx.resourceNumber())
+
+
+    # Visit a parse tree produced by TablParser#resourceOptions.
+    def visitResourceOptions(self, ctx:TablParser.ResourceOptionsContext):
+        options = [option.getText() for option in ctx.RESOURCEOPTION()]
+        return options
+
 
 
     # Visit a parse tree produced by TablParser#resourceName.
@@ -64,27 +94,31 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#resourceNumber.
     def visitResourceNumber(self, ctx:TablParser.ResourceNumberContext):
-        return self.visitChildren(ctx)
+        return ctx.getText()
 
 
     # Visit a parse tree produced by TablParser#commonDeckDef.
     def visitCommonDeckDef(self, ctx:TablParser.CommonDeckDefContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.cardList())
 
 
     # Visit a parse tree produced by TablParser#cardList.
     def visitCardList(self, ctx:TablParser.CardListContext):
-        return self.visitChildren(ctx)
+        cardDict = {}
+        for numCardDef in ctx.numberOfCardDef():
+            number, name = self.visit(numCardDef)
+            cardDict[name] = number
+        return cardDict
 
 
     # Visit a parse tree produced by TablParser#numberOfCardDef.
     def visitNumberOfCardDef(self, ctx:TablParser.NumberOfCardDefContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.numberOfCard())
 
 
     # Visit a parse tree produced by TablParser#numberOfCard.
     def visitNumberOfCard(self, ctx:TablParser.NumberOfCardContext):
-        return self.visitChildren(ctx)
+        return int(ctx.NUMBER().getText()), ctx.NAME().getText().strip('\'')
 
 
     # Visit a parse tree produced by TablParser#phases.
@@ -134,17 +168,28 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#starting.
     def visitStarting(self, ctx:TablParser.StartingContext):
+        startingResources = {}
+        for resourceRule in ctx.resourceRuleDef():
+            name, num, _, _ = self.visit(resourceRule)
+            startingResources[name] = num
+        personalDeckDef = self.visit(ctx.deckOfDef())
+        for i in range(playerCount):
+            personalDeckList = []
+            for cardName in personalDeckDef.keys():
+                for __ in range(personalDeckDef[cardName]):
+                    personalDeckList.append(main.Card(*cardArgs[cardName]))
+            players.append(main.Player(startingResources.copy(), 'player ' + str(i), resourcesList, main.Deck(personalDeckList)))
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TablParser#deckOfDef.
     def visitDeckOfDef(self, ctx:TablParser.DeckOfDefContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.personalDeckDef())
 
 
     # Visit a parse tree produced by TablParser#personalDeckDef.
     def visitPersonalDeckDef(self, ctx:TablParser.PersonalDeckDefContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.cardList())
 
 
     # Visit a parse tree produced by TablParser#listOfCards.
@@ -168,6 +213,7 @@ class TablVisitor(ParseTreeVisitor):
         for cardEffect in ctx.cardEffect():
             cardInfo['effects'].append(self.visit(cardEffect))
         cardList.append(main.Card(cardInfo['cardName'], cardInfo['effects'], cardInfo['cardPicture']))
+        cardArgs[cardInfo['cardName']] = cardInfo['cardName'], cardInfo['effects'], cardInfo['cardPicture']
 
 
 

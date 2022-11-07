@@ -9,8 +9,9 @@ numberOfPlayers: NUMBER (SPACE TO  SPACE NUMBER)?;
 
 contents: CONTENTS COLON LB contentRule;
 contentRule: resourceRuleDef (LB resourceRuleDef)* LB commonDeckDef;
-resourceRuleDef: TAB resourceRule RESOURCETOKENS COMMA;
+resourceRuleDef: TAB resourceRule RESOURCETOKENS (SPACE PAR_OPEN resourceOptions PAR_CLOSE)? COMMA;
 resourceRule: resourceNumber SPACE resourceName SPACE;
+resourceOptions: RESOURCEOPTION (COMMA SPACE RESOURCEOPTION)*;
 resourceName:  NAME;
 resourceNumber: NUMBER | UNLIMITED;
 commonDeckDef: TAB COMMONDECKOF COLON cardList PERIOD;
@@ -89,6 +90,7 @@ PLAYERSSTARTWIHT: 'Players start with';
 ACTIONNAME: 'Draw' | 'draw' | 'play' | 'Play' | 'discard' | 'Discard' | 'buy' | 'Buy' | 'scrap' | 'Scrap';
 RESOURCEORCARDS: 'cards' | 'card';
 LISTOFCARDS: 'List of cards';
+RESOURCEOPTION: 'visible' | 'per-turn';
 TARGET: 'enemy';
 ANYALL: 'any' | 'all';
 NUMBER: [0-9]+;

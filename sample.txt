@@ -1,11 +1,11 @@
 Hero Realms(2)
 
 Contents:
-    unlimited 'health' resource tokens,
-    100 'gold' resource tokens,
+    unlimited 'health' resource tokens (visible),
+    100 'Gold' resource tokens (visible, per-turn),
     a common deck of:
-        1x 'Alma',
-        2x 'Felma'.
+        1x 'Gold',
+        2x 'Cycle'.
 
 In a turn:
     'Draw' phase:
@@ -16,9 +16,10 @@ In a turn:
 
 Players start with:
     50 'health' resource tokens,
+    0 'Gold' resource tokens,
     a deck of:
-        7x 'Gold',
-        1x 'Dagger'.
+        9x 'Gold',
+        1x 'Cycle'.
 
 The game ends when:
     a player reaches 10 'Gold' resource tokens or
@@ -26,8 +27,7 @@ The game ends when:
 
 List of cards:
     'Gold' ~gold coin~:
-        'Gold' +3,
-        'Ruby' -2.
+        'Gold' +1.
 
     'Cycle' ~cycle~:
-        draw 2 card.
+        draw 1 card.
