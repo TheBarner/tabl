@@ -10,6 +10,8 @@ from gen.tablLexer import TablLexer
 import requests
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
+import asyncio
+import websockets
 
 
 def draw(args, activatedBy):
@@ -25,16 +27,32 @@ def spendResource(args, activatedBy):
 
 
 class MyServer(BaseHTTPRequestHandler):
-    def __init__(self, picLink, *args, **kwargs):
-        self.picLink = picLink
+    def __init__(self, market, players, *args, **kwargs):
+        self.market = market
+        self.players = players
         super().__init__(*args, **kwargs)
 
     def do_GET(self):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        self.wfile.write(bytes(self.picLink, 'utf-8'))
+        path = self.path.split('/')
+        print(path)
+        match path[1]:
+            case 'cardList':
+                self.send_response(200)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                self.wfile.write(bytes(json.dumps(cardList, default=lambda o: o.__dict__,
+                    sort_keys=True, indent=4), 'utf-8'))
+            case 'market':
+                self.send_response(200)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                self.wfile.write(bytes(json.dumps(market, default=lambda o: o.__dict__,
+                    sort_keys=True, indent=4), 'utf-8'))
+        # self.wfile.write(bytes('\n', 'utf-8'))
+        # self.wfile.write(bytes(json.dumps(players, default=lambda o: o.__dict__,
+        #     sort_keys=True, indent=4), 'utf-8'))
 
 class Resource:
     def __init__(self, name, limit, picture, options = []):
@@ -66,11 +84,13 @@ class Resource:
         return num
 
 
-class Card:
+class Card():
     id = 0
-    def __init__(self, name, whenPlayedList, picture):
+    def __init__(self, name, whenPlayedList, picture, effectsDisplay, cost=None):
         self.id = Card.id
         Card.id += 1
+        self.effectsDisplay = effectsDisplay
+        self.cost = cost
         self.name = name
         self.whenPlayedArgs = []
         self.whenPlayedActions = []
@@ -93,6 +113,7 @@ class Card:
                                 self.whenPlayedActions.append(spendResource)
         self.picture = picture
 
+
     def __repr__(self):
         return f'{self.name} ({self.id})'
 
@@ -100,6 +121,7 @@ class Card:
         for i in range(len(self.whenPlayedArgs)):
             self.whenPlayedActions[i](self.whenPlayedArgs[i], activatedBy)
         activatedBy.playedCards.append(self)
+        activatedBy.hand.remove(self)
 
 
 class Deck:
@@ -163,11 +185,14 @@ class Player:
         self.resources[resourceName] += numToTake
         print(f'{self.name} took {numToTake} {resourceName} resources, they had {oldNum} and now have {self.resources[resourceName]}')
 
-    def spendResource(self, resourceName, num):
+    def spendResource(self, resourceName, num, strict = True):
         oldNum = self.resources[resourceName]
+        if strict and oldNum < num:
+            return False
         numToSpend = Player.resourcesList[resourceName].restore(num)
         self.resources[resourceName] -= min(self.resources[resourceName], num)
         print(f'{self.name} spent {numToSpend} {resourceName} resources, they had {oldNum} and now have {self.resources[resourceName]}')
+        return True
 
     def beginTurn(self):
         self.draw(5)
@@ -180,8 +205,138 @@ class Player:
         self.playedCards.clear()
         self.hand.clear()
 
+    def buyCard(self, cardId):
+        cardToBuy = self.market.display[cardId]
+        resource, quantity = cardToBuy.cost
+        if self.spendResource(resource, quantity):
+            self.deck.addCard(self.market.buyFromMarket(cardId))
+            print(f"bought card {cardToBuy}")
+        else:
+            print("not enough resources to buy")
 
 
+class Market:
+    def __init__(self, numOfCards, permanent, deck):
+        self.numOfCards = numOfCards
+        self.permanent = permanent
+        self.deck = deck
+        self.display = {}
+        for i in range(0, numOfCards):
+            drawnCard = self.deck.draw()
+            self.display[drawnCard.id] = drawnCard
+
+    def buyFromMarket(self, cardId):
+        toBuy = self.display[cardId]
+        print(f'{self.permanent}')
+        if not self.permanent:
+            drawnCard = self.deck.draw()
+            self.display[drawnCard.id] = drawnCard
+            del self.display[cardId]
+            print(f'{self.display}')
+        return toBuy
+
+
+CLIENTS = set()
+CLIENTSDICT = {}
+ID = 0
+PLAYERNUM = 2
+
+
+async def handler(websocket):
+    CLIENTS.add(websocket)
+    while True:
+        try:
+            message = await websocket.recv()
+        except websockets.ConnectionClosedOK:
+            break
+        message = json.loads(message)
+        print(message)
+        match message['action']:
+            case "ready":
+                global ID
+                CLIENTSDICT[ID] = websocket
+                print(f"player {ID} registered")
+                response = {"messageType": "playerId", "playerId": ID}
+                ID += 1
+                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
+                                                sort_keys=True, indent=4))
+                if ID == PLAYERNUM:
+                    players[0].beginTurn()
+                    for playerId, connection in CLIENTSDICT.items():
+                        pl = players.copy()
+                        currentPlayer = pl.pop(playerId)
+                        resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
+                        response = {"messageType": "beginGame", 'market': market.display, 'player': currentPlayer, 'enemies': resourcesToSend, 'activePlayer': 0}
+                        await connection.send(json.dumps(response, default=lambda o: o.__dict__,
+                                                    sort_keys=True, indent=4))
+
+            case "beginGame":
+                response = {"messageType": 'playerInfo', 'players': players}
+                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
+                                                sort_keys=True, indent=4))
+            case "marketRefresh":
+                response = {"messageType" : 'marketRefresh', 'market' : {'display': market.display}}
+                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
+                        sort_keys=True, indent=4))
+                print("sent")
+            case "playerInfo":
+                response = {"messageType" : 'playerInfo', 'players' : players}
+                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
+                        sort_keys=True, indent=4))
+                print("sent")
+            case "buyCard":
+                currentPlayerId = message['playerId']
+                print(players[currentPlayerId].resources)
+                players[currentPlayerId].buyCard(message['cardId'])
+                print(players[currentPlayerId].resources)
+                response = {"messageType": 'marketRefresh', 'market': {'display': market.display}}
+                for connection in CLIENTS:
+                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
+                            sort_keys=True, indent=4))
+                for playerId, connection in CLIENTSDICT.items():
+                    pl = players.copy()
+                    currentPlayer = pl.pop(playerId)
+                    resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
+                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend}
+                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
+                                                     sort_keys=True, indent=4))
+
+            case "playCard":
+                currentPlayerId = message['playerId']
+                cardsInHand = {card.id : card for card in players[currentPlayerId].hand}
+                print(cardsInHand)
+                cardsInHand[message['cardId']].play(players[currentPlayerId])
+                print(players[currentPlayerId].resources)
+                for playerId, connection in CLIENTSDICT.items():
+                    pl = players.copy()
+                    currentPlayer = pl.pop(playerId)
+                    resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
+                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend}
+                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
+                                                     sort_keys=True, indent=4))
+                print("sent")
+            case "endTurn":
+                currentPlayerId = message['playerId']
+                players[currentPlayerId].endTurn()
+                nextPlayerId = (currentPlayerId + 1) % PLAYERNUM
+                players[nextPlayerId].beginTurn()
+                for playerId, connection in CLIENTSDICT.items():
+                    pl = players.copy()
+                    currentPlayer = pl.pop(playerId)
+                    resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
+                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend}
+                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
+                                                     sort_keys=True, indent=4))
+                for connection in CLIENTS:
+                    response = {"messageType": "activePlayer", "activePlayer": nextPlayerId}
+                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
+                                                    sort_keys=True, indent=4))
+
+
+
+async def main():
+    async with websockets.serve(handler, '', 8000):
+        await asyncio.Future()
 
 if __name__ == '__main__':
     inputStream = FileStream("sample.txt")
@@ -195,18 +350,23 @@ if __name__ == '__main__':
     print(f'List of resources: {resourcesList}')
     print(f'Common deck: {commonDeck}')
     print(f'Players: {players}')
-
-    while True:
-        players = itertools.cycle(players)
-        activePlayer = next(players)
-        activePlayer.beginTurn()
-        print(f'cards in active player\'s hand: {activePlayer.hand}')
-        while len(activePlayer.hand) > 0:
-            toPlay = input('index of card to be played: ')
-            activePlayer.hand[int(toPlay)].play(activePlayer)
-            print(f'cards in active player\'s hand: {activePlayer.hand}')
-            print(resourcesList)
-        activePlayer.endTurn()
+    myCardList = cardList
+    market = Market(5, False, commonDeck)
+    for player in players:
+        player.market = market
+    # while True:
+    #     players = itertools.cycle(players)
+    #     activePlayer = next(players)
+    #     activePlayer.beginTurn()
+    #     print(f'cards in active player\'s hand: {activePlayer.hand}')
+    #     activePlayer.buyCard(1)
+    #     while len(activePlayer.hand) > 0:
+    #         toPlay = input('index of card to be played: ')
+    #         activeHand = {card.id : card for card in activePlayer.hand}
+    #         activeHand[int(toPlay)].play(activePlayer)
+    #         print(f'cards in active player\'s hand: {activePlayer.hand}')
+    #         print(resourcesList)
+    #     activePlayer.endTurn()
 
 
 
@@ -215,7 +375,7 @@ if __name__ == '__main__':
     # serverPort = 8080
     #
     #
-    # handler = partial(MyServer, myResource.picture)
+    # handler = partial(MyServer, market, players)
     # webServer = HTTPServer((hostName, serverPort), handler)
     # print(f'server started, http://{hostName}:{serverPort}')
     # try:
@@ -225,3 +385,5 @@ if __name__ == '__main__':
     #
     # webServer.server_close()
     # print('server stopped')
+    asyncio.run(main())
+
