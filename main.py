@@ -2,7 +2,6 @@ import itertools
 import json
 import FileStream as FileStream
 from antlr4 import *
-from random import shuffle
 from functools import partial
 from gen.TablParser import TablParser
 from gen.TablVisitor import *
@@ -12,10 +11,40 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 import asyncio
 import websockets
+from globals import *
+from classes import *
+
+
+def spendResourceEnemy(args, activatedBy):
+    target = {player.nickName: player for player in players}[args['target']]
+    target.spendResource(args['resourceName'], args['number'])
+
+
+def gainResourceEnemy(args, activatedBy):
+    target = {player.nickName: player for player in players}[args['target']]
+    target.gainResource(args['resourceName'], args['number'])
+
+
+def discardEnemy(args, activatedBy):
+    target = {player.nickName: player for player in players}[args['target']]
+    target.discard(args['number'])
+
+
+def scrap(args, activatedBy):
+    activatedBy.scrap(args['number'])
+
+
+def discard(args, activatedBy):
+    activatedBy.discard(args['number'])
 
 
 def draw(args, activatedBy):
     activatedBy.draw(args['number'])
+
+
+def drawEnemy(args, activatedBy):
+    target = {player.nickName: player for player in players}[args['target']]
+    target.draw(args['number'])
 
 
 def gainResource(args, activatedBy):
@@ -26,214 +55,16 @@ def spendResource(args, activatedBy):
     activatedBy.spendResource(args['resourceName'], args['number'])
 
 
-class MyServer(BaseHTTPRequestHandler):
-    def __init__(self, market, players, *args, **kwargs):
-        self.market = market
-        self.players = players
-        super().__init__(*args, **kwargs)
-
-    def do_GET(self):
-        path = self.path.split('/')
-        print(path)
-        match path[1]:
-            case 'cardList':
-                self.send_response(200)
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.send_header("Content-type", "text/html")
-                self.end_headers()
-                self.wfile.write(bytes(json.dumps(cardList, default=lambda o: o.__dict__,
-                    sort_keys=True, indent=4), 'utf-8'))
-            case 'market':
-                self.send_response(200)
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.send_header("Content-type", "text/html")
-                self.end_headers()
-                self.wfile.write(bytes(json.dumps(market, default=lambda o: o.__dict__,
-                    sort_keys=True, indent=4), 'utf-8'))
-        # self.wfile.write(bytes('\n', 'utf-8'))
-        # self.wfile.write(bytes(json.dumps(players, default=lambda o: o.__dict__,
-        #     sort_keys=True, indent=4), 'utf-8'))
-
-class Resource:
-    def __init__(self, name, limit, picture, options = []):
-        self.name = name
-        self.limit = limit
-        self.supply = limit
-        self.picture = picture
-        self.visible = 'visible' in options
-        self.perTurn = 'per-turn' in options
-        #response = requests.get(f"https://api.pexels.com/v1/search?query={picture}", headers={"Authorization" : "563492ad6f917000010000014363b809657648f1a8b3df00ea4eb9e2"})
-        #self.pictureUrl = response.json()['photos'][0]['src']['small']
-        #print(self.pictureUrl)
-
-    def __repr__(self):
-        return f'{self.name}: {self.supply}, max: {self.limit}, visible: {self.visible}, per-turn: {self.perTurn}'
-
-    def take(self, num):
-        if self.limit == 0:
-            return num
-        if self.supply > 0:
-            toRet = min(num, self.supply)
-            self.supply = max(0, self.supply - num)
-            return toRet
-        return 0
-
-    def restore(self, num):
-        if self.limit != 0:
-            self.supply += num
-        return num
+async def sendResponse(connection, response):
+    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
+                                     sort_keys=True, indent=4))
 
 
-class Card():
-    id = 0
-    def __init__(self, name, whenPlayedList, picture, effectsDisplay, cost=None):
-        self.id = Card.id
-        Card.id += 1
-        self.effectsDisplay = effectsDisplay
-        self.cost = cost
-        self.name = name
-        self.whenPlayedArgs = []
-        self.whenPlayedActions = []
-        for whenPlayed in whenPlayedList:
-            effect = whenPlayed['effect']
-            match whenPlayed['type']:
-                case 'action':
-                    match effect['actionName']:
-                        case 'draw':
-                            self.whenPlayedActions.append(draw)
-                            self.whenPlayedArgs.append({'number': effect['num']})
-                case 'resource':
-                    #if effect['resourceName'] in resourcesList.keys():
-                        args = {'number': int(effect['number']), 'resourceName': effect['resourceName']}
-                        self.whenPlayedArgs.append(args)
-                        match effect['resourceEffect']:
-                            case '+':
-                                self.whenPlayedActions.append(gainResource)
-                            case '-':
-                                self.whenPlayedActions.append(spendResource)
-        self.picture = picture
-
-
-    def __repr__(self):
-        return f'{self.name} ({self.id})'
-
-    def play(self, activatedBy):
-        for i in range(len(self.whenPlayedArgs)):
-            self.whenPlayedActions[i](self.whenPlayedArgs[i], activatedBy)
-        activatedBy.playedCards.append(self)
-        activatedBy.hand.remove(self)
-
-
-class Deck:
-    def __init__(self, cardList = []):
-        self.cardList = cardList
-        self.inDeck = []
-        self.discard = list.copy(cardList)
-        self.shuffleDeck()
-
-    def __repr__(self):
-        cards = []
-        for card in self.cardList:
-            cards.append(card.__repr__())
-        return f"[[{', '.join(cards)}]]"
-
-    def shuffleDeck(self):
-        self.inDeck = list.copy(self.discard)
-        self.discard.clear()
-        shuffle(self.inDeck)
-        print('shuffling deck!')
-
-    def drawNFromDeck(self, num):
-        cardsDrawn = []
-        for _ in range(int(num)):
-            cardsDrawn.append(self.draw())
-        return cardsDrawn
-
-    def draw(self):
-        if len(self.inDeck) == 0 and len(self.discard) != 0:
-            self.shuffleDeck()
-        return self.inDeck.pop() if len(self.inDeck) != 0 else False
-
-    def addCard(self, card):
-        self.discard.append(card)
-
-
-class Player:
-    resourcesList = []
-    def __init__(self, resources, playerName, allResources, deck = Deck()):
-        Player.resourcesList = allResources
-        self.resources = {}
-        for resource, number in resources.items():
-            self.resources[resource] = number
-        self.name = playerName
-        self.playedCards = []
-        self.hand = []
-        self.deck = deck
-
-    def __repr__(self):
-        return f'{self.name}: {self.resources}, deck: {self.deck}'
-
-    def draw(self, num):
-        cardsDrawn = self.deck.drawNFromDeck(num)
-        for card in cardsDrawn:
-            if card: self.hand.append(card)
-        print(f'{self.name} drew {len(cardsDrawn)} cards ({cardsDrawn})')
-
-    def gainResource(self, resourceName, num):
-        oldNum = self.resources[resourceName]
-        numToTake = Player.resourcesList[resourceName].take(num)
-        self.resources[resourceName] += numToTake
-        print(f'{self.name} took {numToTake} {resourceName} resources, they had {oldNum} and now have {self.resources[resourceName]}')
-
-    def spendResource(self, resourceName, num, strict = True):
-        oldNum = self.resources[resourceName]
-        if strict and oldNum < num:
-            return False
-        numToSpend = Player.resourcesList[resourceName].restore(num)
-        self.resources[resourceName] -= min(self.resources[resourceName], num)
-        print(f'{self.name} spent {numToSpend} {resourceName} resources, they had {oldNum} and now have {self.resources[resourceName]}')
-        return True
-
-    def beginTurn(self):
-        self.draw(5)
-
-    def endTurn(self):
-        for card in self.playedCards:
-            self.deck.discard.append(card)
-        for card in self.hand:
-            self.deck.discard.append(card)
-        self.playedCards.clear()
-        self.hand.clear()
-
-    def buyCard(self, cardId):
-        cardToBuy = self.market.display[cardId]
-        resource, quantity = cardToBuy.cost
-        if self.spendResource(resource, quantity):
-            self.deck.addCard(self.market.buyFromMarket(cardId))
-            print(f"bought card {cardToBuy}")
-        else:
-            print("not enough resources to buy")
-
-
-class Market:
-    def __init__(self, numOfCards, permanent, deck):
-        self.numOfCards = numOfCards
-        self.permanent = permanent
-        self.deck = deck
-        self.display = {}
-        for i in range(0, numOfCards):
-            drawnCard = self.deck.draw()
-            self.display[drawnCard.id] = drawnCard
-
-    def buyFromMarket(self, cardId):
-        toBuy = self.display[cardId]
-        print(f'{self.permanent}')
-        if not self.permanent:
-            drawnCard = self.deck.draw()
-            self.display[drawnCard.id] = drawnCard
-            del self.display[cardId]
-            print(f'{self.display}')
-        return toBuy
+def generatePlayerInfo(playerId):
+    pl = players.copy()
+    currentPlayer = pl.pop(playerId)
+    resourcesToSend = {otherPlayer.nickName: otherPlayer.resources for otherPlayer in pl}
+    return currentPlayer, resourcesToSend
 
 
 CLIENTS = set()
@@ -242,8 +73,54 @@ ID = 0
 PLAYERNUM = 2
 
 
+def checkEndGameConditions():
+    for player in players:
+        for conditionSet in endGameConditions:
+            conditionsMet = True
+            for condition in conditionSet:
+                if 'comparator' not in condition.keys():
+                    if player.resources[condition['resource']] != condition['number']:
+                        conditionsMet = False
+                elif condition['comparator'] == 'more':
+                    if player.resources[condition['resource']] < condition['number']:
+                        conditionsMet = False
+                elif condition['comparator'] == 'less':
+                    if player.resources[condition['resource']] > condition['number']:
+                        conditionsMet = False
+            if conditionsMet:
+                return True
+    return False
+
+
+def checkWinner():
+    winner = players[0]
+    winners = []
+    for player in players:
+        if player != winner:
+            if winCon['comparator'] == 'more':
+                if player.resources[winCon['resourceName']] > winner.resources[winCon['resourceName']]:
+                    winner = player
+                elif player.resources[winCon['resourceName']] == winner.resources[winCon['resourceName']]:
+                    winners.append(winner)
+                    winners.append(player)
+            elif winCon['comparator'] == 'less':
+                if player.resources[winCon['resourceName']] < winner.resources[winCon['resourceName']]:
+                    winner = player
+                elif player.resources[winCon['resourceName']] == winner.resources[winCon['resourceName']]:
+                    winners.append(winner)
+                    winners.append(player)
+    toRet = {'winner': winners, 'tie': True} if len(winners) > 0 else {'winner': winner, 'tie': False}
+    print(toRet)
+    return toRet
+
+
 async def handler(websocket):
     CLIENTS.add(websocket)
+    global market
+    global commonDeck
+    global tablParsed
+    global scrapPile
+    global endGameConditions
     while True:
         try:
             message = await websocket.recv()
@@ -252,138 +129,131 @@ async def handler(websocket):
         message = json.loads(message)
         print(message)
         match message['action']:
+
+            case "gameFile":
+                lexer = TablLexer(InputStream(message['tablText']))
+                stream = CommonTokenStream(lexer)
+                parser = TablParser(stream)
+                tree = parser.rules()
+                visitor = TablVisitor()
+                visitor.visit(tree)
+                commonDeck = commonDeck[0]
+                endGameConditions = endGameConditions[0]
+                print(f'List of resources: {resourcesList}')
+                print(f'Common deck: {commonDeck}')
+                print(f'Players: {players}')
+                print(f'end game conditions: {endGameConditions}')
+                market = Market(5, False, commonDeck)
+                for player in players:
+                    player.market = market
+                tablParsed = True
+                response = {"messageType": "tablParsed", "success": True}
+                for connection in CLIENTS:
+                    await sendResponse(connection, response)
+
             case "ready":
                 global ID
                 CLIENTSDICT[ID] = websocket
                 print(f"player {ID} registered")
+                players[ID].nickName = message['nickName']
                 response = {"messageType": "playerId", "playerId": ID}
                 ID += 1
-                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
-                                                sort_keys=True, indent=4))
+                await sendResponse(websocket, response)
                 if ID == PLAYERNUM:
-                    players[0].beginTurn()
+                    for pl in players:
+                        pl.beginGame()
+                    players[0].active = True
                     for playerId, connection in CLIENTSDICT.items():
-                        pl = players.copy()
-                        currentPlayer = pl.pop(playerId)
-                        resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
-                        response = {"messageType": "beginGame", 'market': market.display, 'player': currentPlayer, 'enemies': resourcesToSend, 'activePlayer': 0}
-                        await connection.send(json.dumps(response, default=lambda o: o.__dict__,
-                                                    sort_keys=True, indent=4))
+                        currentPlayer, resourcesToSend = generatePlayerInfo(playerId)
+                        response = {"messageType": "beginGame", 'market': market.display, 'player': currentPlayer,
+                                    'enemies': resourcesToSend, 'activePlayer': 0, 'scrap': scrapPile, 'limits': playLimits}
+                        await sendResponse(connection, response)
 
-            case "beginGame":
-                response = {"messageType": 'playerInfo', 'players': players}
-                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
-                                                sort_keys=True, indent=4))
-            case "marketRefresh":
-                response = {"messageType" : 'marketRefresh', 'market' : {'display': market.display}}
-                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
-                        sort_keys=True, indent=4))
-                print("sent")
-            case "playerInfo":
-                response = {"messageType" : 'playerInfo', 'players' : players}
-                await websocket.send(json.dumps(response, default=lambda o: o.__dict__,
-                        sort_keys=True, indent=4))
-                print("sent")
             case "buyCard":
                 currentPlayerId = message['playerId']
                 print(players[currentPlayerId].resources)
-                players[currentPlayerId].buyCard(message['cardId'])
-                print(players[currentPlayerId].resources)
-                response = {"messageType": 'marketRefresh', 'market': {'display': market.display}}
-                for connection in CLIENTS:
-                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
-                            sort_keys=True, indent=4))
-                for playerId, connection in CLIENTSDICT.items():
-                    pl = players.copy()
-                    currentPlayer = pl.pop(playerId)
-                    resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
-                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend}
-                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
-                                                     sort_keys=True, indent=4))
+                currentPlayer = players[currentPlayerId]
+                if 'buy' in playLimits.keys() and currentPlayer.cardsBoughtThisTurn >= playLimits['buy']:
+                    response = {'messageType': 'buyLimitReached'}
+                    await sendResponse(websocket, response)
+                else:
+                    currentPlayer.buyCard(message['cardId'])
+                    print(players[currentPlayerId].resources)
+                    response = {"messageType": 'marketRefresh', 'market': {'display': market.display}}
+                    for connection in CLIENTS:
+                        await sendResponse(connection, response)
+                    for playerId, connection in CLIENTSDICT.items():
+                        currentPlayer, resourcesToSend = generatePlayerInfo(playerId)
+                        response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend,
+                                    'scrap': scrapPile}
+                        await sendResponse(connection, response)
 
             case "playCard":
                 currentPlayerId = message['playerId']
-                cardsInHand = {card.id : card for card in players[currentPlayerId].hand}
-                print(cardsInHand)
-                cardsInHand[message['cardId']].play(players[currentPlayerId])
-                print(players[currentPlayerId].resources)
-                for playerId, connection in CLIENTSDICT.items():
-                    pl = players.copy()
-                    currentPlayer = pl.pop(playerId)
-                    resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
-                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend}
-                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
-                                                     sort_keys=True, indent=4))
-                print("sent")
-            case "endTurn":
-                currentPlayerId = message['playerId']
-                players[currentPlayerId].endTurn()
-                nextPlayerId = (currentPlayerId + 1) % PLAYERNUM
-                players[nextPlayerId].beginTurn()
-                for playerId, connection in CLIENTSDICT.items():
-                    pl = players.copy()
-                    currentPlayer = pl.pop(playerId)
-                    resourcesToSend = [otherPlayer.resources for otherPlayer in pl]
-                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend}
-                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
-                                                     sort_keys=True, indent=4))
-                for connection in CLIENTS:
-                    response = {"messageType": "activePlayer", "activePlayer": nextPlayerId}
-                    await connection.send(json.dumps(response, default=lambda o: o.__dict__,
-                                                    sort_keys=True, indent=4))
+                currentPlayer = players[currentPlayerId]
+                if 'play' in playLimits.keys() and currentPlayer.cardsPlayedThisTurn >= playLimits['play']:
+                    response = {'messageType': 'playLimitReached'}
+                    await sendResponse(websocket, response)
+                else:
+                    cardsInHand = {card.id: card for card in currentPlayer.hand}
+                    if 'target' in message.keys():
+                        cardsInHand[message['cardId']].play(currentPlayer, message['target'])
+                    else:
+                        cardsInHand[message['cardId']].play(currentPlayer)
+                    currentPlayer.cardsPlayedThisTurn += 1
+                    for playerId, connection in CLIENTSDICT.items():
+                        currentPlayer, resourcesToSend = generatePlayerInfo(playerId)
+                        response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend,
+                                    'scrap': scrapPile}
+                        await sendResponse(connection, response)
 
+            case "endTurn":
+                if checkEndGameConditions():
+                    winDict = checkWinner()
+                    response = {"messageType": "endGame", "tie": winDict['tie'], "winner": winDict['winner']}
+                    for connection in CLIENTS:
+                        await sendResponse(connection, response)
+                else:
+                    currentPlayerId = message['playerId']
+                    players[currentPlayerId].endTurn()
+                    nextPlayerId = (currentPlayerId + 1) % PLAYERNUM
+                    players[nextPlayerId].beginTurn()
+                    for playerId, connection in CLIENTSDICT.items():
+                        currentPlayer, resourcesToSend = generatePlayerInfo(playerId)
+                        response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend,
+                                    'scrap': scrapPile}
+                        await sendResponse(connection, response)
+                    for connection in CLIENTS:
+                        response = {"messageType": "activePlayer", "activePlayer": nextPlayerId,
+                                    "discard": players[nextPlayerId].toDiscard}
+                        await sendResponse(connection, response)
+
+            case "checkTablParsed":
+                if tablParsed:
+                    response = {"messageType": "tablParsed", "success": True}
+                    await sendResponse(websocket, response)
+
+            case 'discard':
+                players[message['playerId']].discardCard(message['cardId'])
+                for playerId, connection in CLIENTSDICT.items():
+                    currentPlayer, resourcesToSend = generatePlayerInfo(playerId)
+                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend,
+                                'scrap': scrapPile}
+                    await sendResponse(connection, response)
+
+            case 'scrap':
+                scrapPile.append(players[message['playerId']].scrapCard(message['cardId']))
+                for playerId, connection in CLIENTSDICT.items():
+                    currentPlayer, resourcesToSend = generatePlayerInfo(playerId)
+                    response = {"messageType": "playerInfo", 'player': currentPlayer, 'enemies': resourcesToSend,
+                                'scrap': scrapPile}
+                    await sendResponse(connection, response)
 
 
 async def main():
     async with websockets.serve(handler, '', 8000):
         await asyncio.Future()
 
+
 if __name__ == '__main__':
-    inputStream = FileStream("sample.txt")
-    lexer = TablLexer(inputStream)
-    stream = CommonTokenStream(lexer)
-    parser = TablParser(stream)
-    tree = parser.rules()
-    visitor = TablVisitor()
-    visitor.visit(tree)
-    commonDeck = commonDeck[0]
-    print(f'List of resources: {resourcesList}')
-    print(f'Common deck: {commonDeck}')
-    print(f'Players: {players}')
-    myCardList = cardList
-    market = Market(5, False, commonDeck)
-    for player in players:
-        player.market = market
-    # while True:
-    #     players = itertools.cycle(players)
-    #     activePlayer = next(players)
-    #     activePlayer.beginTurn()
-    #     print(f'cards in active player\'s hand: {activePlayer.hand}')
-    #     activePlayer.buyCard(1)
-    #     while len(activePlayer.hand) > 0:
-    #         toPlay = input('index of card to be played: ')
-    #         activeHand = {card.id : card for card in activePlayer.hand}
-    #         activeHand[int(toPlay)].play(activePlayer)
-    #         print(f'cards in active player\'s hand: {activePlayer.hand}')
-    #         print(resourcesList)
-    #     activePlayer.endTurn()
-
-
-
-
-    # hostName = 'localhost'
-    # serverPort = 8080
-    #
-    #
-    # handler = partial(MyServer, market, players)
-    # webServer = HTTPServer((hostName, serverPort), handler)
-    # print(f'server started, http://{hostName}:{serverPort}')
-    # try:
-    #     webServer.serve_forever()
-    # except KeyboardInterrupt:
-    #     pass
-    #
-    # webServer.server_close()
-    # print('server stopped')
     asyncio.run(main())
-

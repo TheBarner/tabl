@@ -1,6 +1,7 @@
 # Generated from C:/Users/barna/PycharmProjects/tabl\Tabl.g4 by ANTLR 4.10.1
 from antlr4 import *
-import main
+import classes
+from globals import *
 if __name__ is not None and "." in __name__:
     from .TablParser import TablParser
 else:
@@ -8,22 +9,16 @@ else:
 
 # This class defines a complete generic visitor for a parse tree produced by TablParser.
 
-cardList = []
-cardArgs = {}
-resourcesList = {}
-commonDeckCardList = []
-commonDeck = []
-playerCount = 2
-players = []
-
-
 class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#rules.
     def visitRules(self, ctx:TablParser.RulesContext):
+        self.visit(ctx.phases())
         self.visit(ctx.listOfCards())
         self.visit(ctx.contents())
         self.visit(ctx.starting())
+        self.visit(ctx.gameEnd())
+        self.visit(ctx.winCon())
         print(cardArgs)
 
 
@@ -56,13 +51,14 @@ class TablVisitor(ParseTreeVisitor):
     def visitContentRule(self, ctx:TablParser.ContentRuleContext):
         for resourceRule in ctx.resourceRuleDef():
             resourceArgs = self.visit(resourceRule)
-            resource = main.Resource(*resourceArgs)
+            resource = classes.Resource(*resourceArgs)
             resourcesList[resource.name] = resource
         commonDeckDef = self.visit(ctx.commonDeckDef())
         for cardName in commonDeckDef.keys():
             for __ in range(commonDeckDef[cardName]):
-                commonDeckCardList.append(main.Card(*cardArgs[cardName]))
-        commonDeck.append(main.Deck(commonDeckCardList))
+                commonDeckCardList.append(classes.Card(*cardArgs[cardName]))
+        commonDeck.append(classes.Deck(commonDeckCardList))
+        print(commonDeck)
 
 
 
@@ -123,22 +119,40 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#phases.
     def visitPhases(self, ctx:TablParser.PhasesContext):
-        return self.visitChildren(ctx)
+        if ctx.prepPhase():
+            self.visit(ctx.prepPhase())
+        self.visit(ctx.playPhase())
+        if ctx.cleanupPhase():
+            self.visit(ctx.cleanupPhase())
 
 
-    # Visit a parse tree produced by TablParser#phaseDef.
-    def visitPhaseDef(self, ctx:TablParser.PhaseDefContext):
-        return self.visitChildren(ctx)
+    # Visit a parse tree produced by TablParser#prepPhase.
+    def visitPrepPhase(self, ctx:TablParser.PrepPhaseContext):
+        for action in self.visit(ctx.phase()):
+            prepPhase.append(action)
+
+
+    # Visit a parse tree produced by TablParser#playPhase.
+    def visitPlayPhase(self, ctx:TablParser.PlayPhaseContext):
+        limits = self.visit(ctx.phase())
+        for limit in limits:
+            if limit['num'] != 'any':
+                playLimits[limit['actionName']] = int(limit['num'])
+        print(f'playLimits: {playLimits}')
+
+
+    # Visit a parse tree produced by TablParser#cleanupPhase.
+    def visitCleanupPhase(self, ctx:TablParser.CleanupPhaseContext):
+        for action in self.visit(ctx.phase()):
+            cleanupPhase.append(action)
 
 
     # Visit a parse tree produced by TablParser#phase.
     def visitPhase(self, ctx:TablParser.PhaseContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by TablParser#phaseName.
-    def visitPhaseName(self, ctx:TablParser.PhaseNameContext):
-        return self.visitChildren(ctx)
+        actions = []
+        for actionDef in ctx.actionDef():
+            actions.append(self.visit(actionDef))
+        return actions
 
 
     # Visit a parse tree produced by TablParser#actionDef.
@@ -177,8 +191,8 @@ class TablVisitor(ParseTreeVisitor):
             personalDeckList = []
             for cardName in personalDeckDef.keys():
                 for __ in range(personalDeckDef[cardName]):
-                    personalDeckList.append(main.Card(*cardArgs[cardName]))
-            players.append(main.Player(startingResources.copy(), 'player ' + str(i), resourcesList, main.Deck(personalDeckList)))
+                    personalDeckList.append(classes.Card(*cardArgs[cardName]))
+            players.append(classes.Player(startingResources.copy(), 'player ' + str(i), resourcesList, classes.Deck(personalDeckList)))
         return self.visitChildren(ctx)
 
 
@@ -206,23 +220,30 @@ class TablVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by TablParser#cardDefinition.
     def visitCardDefinition(self, ctx:TablParser.CardDefinitionContext):
         cardInfo = {}
-        namePicInfo = self.visit(ctx.cardNameAndPicture())
-        cardInfo['cardName'] = namePicInfo['name']
-        cardInfo['cardPicture'] = namePicInfo['pic']
+        namePicCostInfo = self.visit(ctx.cardNameAndPicture())
+        cardInfo['cardName'] = namePicCostInfo['name']
+        cardInfo['cardPicture'] = namePicCostInfo['pic']
+        cardInfo['cost'] = namePicCostInfo['cost']
         cardInfo['effects'] = []
+        cardInfo['effectsDisplay'] = []
         for cardEffect in ctx.cardEffect():
-            cardInfo['effects'].append(self.visit(cardEffect))
-        cardList.append(main.Card(cardInfo['cardName'], cardInfo['effects'], cardInfo['cardPicture']))
-        cardArgs[cardInfo['cardName']] = cardInfo['cardName'], cardInfo['effects'], cardInfo['cardPicture']
+            effect, effectDisplay = self.visit(cardEffect)
+            cardInfo['effects'].append(effect)
+            cardInfo['effectsDisplay'].append(effectDisplay)
+        cardList.append(
+            classes.Card(cardInfo['cardName'], cardInfo['effects'], cardInfo['cardPicture'], cardInfo['effectsDisplay'], cardInfo['cost']))
+        cardArgs[cardInfo['cardName']] = cardInfo['cardName'], cardInfo['effects'], cardInfo['cardPicture'], cardInfo['effectsDisplay'], cardInfo['cost']
 
 
 
     # Visit a parse tree produced by TablParser#cardNameAndPicture.
     def visitCardNameAndPicture(self, ctx:TablParser.CardNameAndPictureContext):
-        namePicInfo = {}
-        namePicInfo['name'] = self.visit(ctx.cardName())
-        namePicInfo['pic'] = self.visit(ctx.pictureName())
-        return namePicInfo
+        namePicCostInfo = {'name': self.visit(ctx.cardName()), 'pic': self.visit(ctx.pictureName())}
+        if ctx.resourceName():
+            namePicCostInfo['cost'] = self.visit(ctx.resourceName()), int(self.visit(ctx.resourceNumber()))
+        else:
+            namePicCostInfo['cost'] = None
+        return namePicCostInfo
 
 
     # Visit a parse tree produced by TablParser#cardEffect.
@@ -232,14 +253,13 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#resourceEffectOrActionEffect.
     def visitResourceEffectOrActionEffect(self, ctx:TablParser.ResourceEffectOrActionEffectContext):
-        if ctx.actionWithTarget(): return self.visit(ctx.actionWithTarget())
-        elif ctx.resourceEffectWithTarget(): return self.visit(ctx.resourceEffectWithTarget())
+        if ctx.actionWithTarget(): return self.visit(ctx.actionWithTarget()), ctx.getText()
+        elif ctx.resourceEffectWithTarget(): return self.visit(ctx.resourceEffectWithTarget()), ctx.getText()
 
 
     # Visit a parse tree produced by TablParser#resourceEffectWithTarget.
     def visitResourceEffectWithTarget(self, ctx:TablParser.ResourceEffectWithTargetContext):
-        info = {}
-        info['type'] = 'resource'
+        info = {'type': 'resource'}
         if ctx.target(): info['target'] = self.visit(ctx.target())
         info['effect'] = self.visit(ctx.resourceEffect())
         return info
@@ -247,8 +267,7 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#actionWithTarget.
     def visitActionWithTarget(self, ctx:TablParser.ActionWithTargetContext):
-        info = {}
-        info['type'] = 'action'
+        info = {'type': 'action'}
         if ctx.target(): info['target'] = self.visit(ctx.target())
         info['effect'] = self.visit(ctx.action())
         return info
@@ -291,42 +310,72 @@ class TablVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TablParser#gameEnd.
     def visitGameEnd(self, ctx:TablParser.GameEndContext):
-        return self.visitChildren(ctx)
+        conditions = []
+        andors = []
+        for andor in ctx.endOrAndOr():
+            andors.append(self.visit(andor))
+        conditionSetCounter = 0
+        andorCounter = 0
+        conditions.append([])
+        for condition in ctx.gameEndConditionDef():
+            conditions[conditionSetCounter].append(self.visit(condition))
+            if andors[andorCounter] == 'or':
+                conditions.append([])
+                conditionSetCounter += 1
+            andorCounter += 1
+        conditions.pop()
+        endGameConditions.append(conditions)
 
 
     # Visit a parse tree produced by TablParser#endOrAndOr.
     def visitEndOrAndOr(self, ctx:TablParser.EndOrAndOrContext):
-        return self.visitChildren(ctx)
+        toRet = 'and' if ctx.AND() else 'or'
+        return toRet
 
 
     # Visit a parse tree produced by TablParser#gameEndConditionDef.
     def visitGameEndConditionDef(self, ctx:TablParser.GameEndConditionDefContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.gameEndCondition())
 
 
     # Visit a parse tree produced by TablParser#gameEndCondition.
     def visitGameEndCondition(self, ctx:TablParser.GameEndConditionContext):
-        return self.visitChildren(ctx)
+        resource = self.visit(ctx.gameEndResource())
+        number = self.visit(ctx.gameEndConditionQuant())
+        moreOrLess = False
+        if ctx.gameEndMoreOrLess():
+            moreOrLess = self.visit(ctx.gameEndMoreOrLess())
+        toRet = {'resource': resource, 'number': number}
+        if moreOrLess:
+            toRet['comparator'] = moreOrLess
+        return toRet
+
 
 
     # Visit a parse tree produced by TablParser#gameEndConditionQuant.
     def visitGameEndConditionQuant(self, ctx:TablParser.GameEndConditionQuantContext):
-        return self.visitChildren(ctx)
+        return int(ctx.getText())
 
 
     # Visit a parse tree produced by TablParser#gameEndMoreOrLess.
     def visitGameEndMoreOrLess(self, ctx:TablParser.GameEndMoreOrLessContext):
-        return self.visitChildren(ctx)
+        return ctx.moreOrLess().getText()
 
 
     # Visit a parse tree produced by TablParser#moreOrLess.
     def visitMoreOrLess(self, ctx:TablParser.MoreOrLessContext):
-        return self.visitChildren(ctx)
+        return ctx.getText()
 
 
     # Visit a parse tree produced by TablParser#gameEndResource.
     def visitGameEndResource(self, ctx:TablParser.GameEndResourceContext):
-        return self.visitChildren(ctx)
+        return ctx.getText().strip("'")
+
+
+    # Visit a parse tree produced by TablParser#winCon.
+    def visitWinCon(self, ctx:TablParser.WinConContext):
+        winCon['comparator'] = self.visit(ctx.moreOrLess())
+        winCon['resourceName'] = self.visit(ctx.resourceName())
 
 
 

@@ -1,0 +1,15 @@
+players = []
+commonDeck = []
+cardList = []
+cardArgs = {}
+resourcesList = {}
+commonDeckCardList = []
+playerCount = 2
+tablParsed = False
+market = None
+scrapPile = []
+endGameConditions = []
+winCon = {}
+prepPhase = []
+cleanupPhase = []
+playLimits = {}

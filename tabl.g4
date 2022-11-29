@@ -1,11 +1,11 @@
 grammar Tabl;
 
-rules: title LB* contents LB* phases LB* starting LB* gameEnd LB*  listOfCards LB*;// setup, gameEnd, wincon
+rules: title LB* contents LB* phases LB* setup LB* starting LB* gameEnd LB* winCon LB* listOfCards LB*;// setup, wincon
 
 title: gameName playerCount;
 gameName: ID (SPACE ID)*;
 playerCount: PAR_OPEN numberOfPlayers PAR_CLOSE;
-numberOfPlayers: NUMBER (SPACE TO  SPACE NUMBER)?;
+numberOfPlayers: NUMBER;
 
 contents: CONTENTS COLON LB contentRule;
 contentRule: resourceRuleDef (LB resourceRuleDef)* LB commonDeckDef;
@@ -19,15 +19,16 @@ cardList: numberOfCardDef (COMMA numberOfCardDef)*;
 numberOfCardDef: LB TAB TAB numberOfCard;
 numberOfCard: NUMBER X SPACE NAME;
 
-phases: INATURN COLON phaseDef (phaseDef)* LB;
-phaseDef: LB phase;
-phase: TAB phaseName SPACE PHASE COLON LB actionDef (COMMA LB actionDef)* PERIOD;
-phaseName: NAME;
+phases: INATURN COLON LB (prepPhase LB)? playPhase LB (cleanupPhase LB)? LB;
+prepPhase: TAB PREPPHASE COLON LB phase;
+playPhase: TAB PLAYPHASE COLON LB phase;
+cleanupPhase: TAB CLEANUPPHASE COLON LB phase;
+phase: actionDef (COMMA LB actionDef)* PERIOD;
+
 actionDef: TAB TAB action;
-action: actionName SPACE doTimes SPACE actionCardResource;
+action: actionName SPACE doTimes SPACE CARDS;
 doTimes: (NUMBER | ANYALL);
 actionName: ACTIONNAME;
-actionCardResource: RESOURCEORCARDS;
 
 starting: PLAYERSSTARTWIHT COLON LB resourceRuleDef (LB resourceRuleDef)* LB deckOfDef PERIOD;
 deckOfDef: TAB DECKOF COLON personalDeckDef;
@@ -35,8 +36,8 @@ personalDeckDef: cardList;
 
 listOfCards: LISTOFCARDS COLON LB cardDefinitions;
 cardDefinitions: cardDefinition (LB* cardDefinition)*;
-cardDefinition: TAB cardNameAndPicture LB cardEffect (LB cardEffect)*;
-cardNameAndPicture: cardName SPACE pictureName COLON;
+cardDefinition: TAB cardNamePictureCost (LB cardEffect)+;
+cardNamePictureCost: cardName SPACE pictureName (SPACE resourceNumber SPACE resourceName)? COLON;
 cardEffect: TAB TAB resourceEffectOrActionEffect;
 resourceEffectOrActionEffect: (actionWithTarget | resourceEffectWithTarget) delim;
 resourceEffectWithTarget: (target SPACE)? resourceEffect;
@@ -58,7 +59,14 @@ gameEndMoreOrLess: OR SPACE moreOrLess;
 moreOrLess: MOREORLESS;
 gameEndResource: NAME;
 
+winCon: GAMEISWONBY COLON LB TAB PLAYERWITH SPACE moreOrLess SPACE resourceName SPACE RESOURCETOKENS PERIOD;
 
+
+PREPPHASE: 'preparation phase';
+PLAYPHASE: 'play phase';
+CLEANUPPHASE: 'cleanup phase';
+PLAYERWITH: 'the player with';
+GAMEISWONBY: 'The game is won by';
 CONTENTS: 'Contents' | 'contents';
 TAB: '\t' | '    ';
 COMMA: ',';
@@ -74,10 +82,9 @@ PERIOD: '.';
 SPACE: ' ';
 DELIM: ',' | '.';
 APOSTROPHE: '\'';
-PHASE: 'phase';
 TO: 'to';
 GAMEENDSWHEN: 'The game ends when';
-APLAYERREACHES: 'a player reaches';
+APLAYERREACHES: 'a player reaches' | 'they reach';
 OR: 'or';
 AND: 'and';
 MOREORLESS: 'less' | 'more';
@@ -88,9 +95,9 @@ UNLIMITED: 'unlimited';
 DECKOF: 'a deck of';
 PLAYERSSTARTWIHT: 'Players start with';
 ACTIONNAME: 'Draw' | 'draw' | 'play' | 'Play' | 'discard' | 'Discard' | 'buy' | 'Buy' | 'scrap' | 'Scrap';
-RESOURCEORCARDS: 'cards' | 'card';
+CARDS: 'cards' | 'card';
 LISTOFCARDS: 'List of cards';
-RESOURCEOPTION: 'visible' | 'per-turn';
+RESOURCEOPTION: 'visible' | 'per-turn' | 'strict';
 TARGET: 'enemy';
 ANYALL: 'any' | 'all';
 NUMBER: [0-9]+;

@@ -1,33 +1,57 @@
 Hero Realms(2)
 
 Contents:
-    unlimited 'health' resource tokens (visible),
-    100 'Gold' resource tokens (visible, per-turn),
+    unlimited 'Health' resource tokens (visible),
+    100 'Gold' resource tokens (visible, per-turn, strict),
     a common deck of:
-        1x 'Gold',
-        2x 'Cycle'.
+        10x 'Golder',
+        11x 'Golderer'.
 
 In a turn:
-    'Draw' phase:
-        draw 5 cards.
-    'Play' phase:
-        play any cards,
-        buy any cards.
+    play phase:
+        play 2 cards,
+        buy 3 cards.
+    cleanup phase:
+        discard all cards,
+        draw 4 cards.
 
 Players start with:
-    50 'health' resource tokens,
+    50 'Health' resource tokens,
     0 'Gold' resource tokens,
     a deck of:
-        9x 'Gold',
-        1x 'Cycle'.
+        10x 'DoBadHeal',
+        10x 'Gold'.
 
 The game ends when:
-    a player reaches 10 'Gold' resource tokens or
-    a player reaches 0 or less 'Health' resource tokens.
+    a player reaches 0 or less 'Health' resource tokens or
+    a player reaches 100 or more 'Gold' resource tokens.
+
+The game is won by:
+    the player with more 'Health' resource tokens.
 
 List of cards:
     'Gold' ~gold coin~:
         'Gold' +1.
 
+    'Golder' ~golder coin~ 2 'Gold':
+        'Gold' +2.
+
+    'Golderer' ~golderer coin~ 3 'Gold':
+        'Gold' +3.
+
     'Cycle' ~cycle~:
         draw 1 card.
+
+    'DiscardCard' ~dcc~:
+        enemy discard 1 card.
+
+    'DoBadHeal' ~dbh~:
+        'Health' +1,
+        enemy 'Health' -5.
+
+    'DCOWN' ~dco~:
+        draw 2 cards,
+        discard 1 card.
+
+    'Scrap' ~scr~:
+        scrap 2 cards.
